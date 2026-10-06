@@ -14,15 +14,15 @@ Three decisions (2026-10-06): a prediction market is the first domain; the vocab
 (belief, then market, with a process layer later); history is kept by immutable revisions.
 
 ## Status
-- Stage: building (first feature merged to `main`, 2026-10-06; unreleased)
+- Stage: released (first feature on `main`; first full release 0.1.1, 2026-10-06)
 - As of: 2026-10-06
-- Current release: unreleased
+- Current release: 0.1.1 (0.1.0 is an image and a release page only: its run failed before the libraries)
 - Visibility: public
 
 ## Where it lives
 - Repo: github.com/thinkmorestupidless/ankka-reasoning
 - Local: ~/Documents/projects/thinkmorestupidless/ankka-reasoning
-- Publishes: documentation to `https://reasoning.ankka.cloud/` (GitHub Pages, from `main`). On a `v*` tag, by `release.yml`: `ankka-reasoning-{graph,belief,market}_3` to Maven Central, the image `ghcr.io/thinkmorestupidless/ankka-reasoning`, the plugin to ankka-marketplace, and a release page with the service descriptor and blueprint attached. No tag has been pushed
+- Publishes: documentation to `https://reasoning.ankka.cloud/` (GitHub Pages, from `main`). On a `v*` tag, by `release.yml`: `ankka-reasoning-{graph,belief,market}_3` to Maven Central, the image `ghcr.io/thinkmorestupidless/ankka-reasoning`, the plugin to ankka-marketplace, and a release page with the service descriptor and blueprint attached. First published at 0.1.1
 - Runs: on a laptop (`just up`, `just run`). Never deployed to a cluster
 
 ## Depends on / depended on by
@@ -72,6 +72,10 @@ Three decisions (2026-10-06): a prediction market is the first domain; the vocab
   lessons as rules and names nothing from it.
 
 ## Recent moves
+- 2026-10-06: 0.1.1 released: the three libraries are on Maven Central and the image is on
+  ghcr.io. Still to do by hand: make the GHCR package public, and give `MARKETPLACE_REPO_TOKEN`
+  write access to ankka-marketplace, then re-run the release's `marketplace` job, which has failed
+  twice with a 403.
 - 2026-10-06: release workflow added. It needs five repository secrets (`PGP_SECRET`,
   `PGP_PASSPHRASE`, `SONATYPE_USERNAME`, `SONATYPE_PASSWORD`, `MARKETPLACE_REPO_TOKEN`), all set,
   and the GHCR package made public after its first push.

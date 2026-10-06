@@ -31,10 +31,10 @@ agent can find them, never their contents.
 ## Registries and packages
 | Where | What | Written by |
 |---|---|---|
-| `ghcr.io/thinkmorestupidless/*` | public images: ankka-reasoning (from its first release; none yet), ankka-operator, ankka-controlplane, ankka-sidecar, ankka-console, sample-shopping-cart, ankka-flow-sidecar, ankka-flow-operator, ankka-flow samples, cloudflow-operator | each repo's release job via `GITHUB_TOKEN` |
+| `ghcr.io/thinkmorestupidless/*` | public images: ankka-reasoning (0.1.0 and 0.1.1; package not yet made public), ankka-operator, ankka-controlplane, ankka-sidecar, ankka-console, sample-shopping-cart, ankka-flow-sidecar, ankka-flow-operator, ankka-flow samples, cloudflow-operator | each repo's release job via `GITHUB_TOKEN` |
 | `europe-west2-docker.pkg.dev/ankka-ops/ghcr` | remote cache of ghcr.io; clusters pull public images here | ankka's release warms it |
 | `europe-west2-docker.pkg.dev/ankka-ops/ankka` | private images (ankka-cloud); legacy ankka releases up to 0.6.4 | release identity `ankka-release@ankka-ops` |
-| Maven Central `com.thinkmorestupidless` | ankka-{core,sdk,runtime,http,agent,testkit,controlplane-api}_3; satisfactory-{protocol,model-spi,client}, ankka-satisfactory; ankka-reasoning-{graph,belief,market}_3 (from its first release; none yet) | ankka, satisfactory, ankka-reasoning |
+| Maven Central `com.thinkmorestupidless` | ankka-{core,sdk,runtime,http,agent,testkit,controlplane-api}_3; satisfactory-{protocol,model-spi,client}, ankka-satisfactory; ankka-reasoning-{graph,belief,market}_3 (from 0.1.1) | ankka, satisfactory, ankka-reasoning |
 | GitHub Packages `maven.pkg.github.com/thinkmorestupidless/cloudflow` | `com.lightbend.cloudflow` 0.1.0 only | cloudflow |
 | PyPI | `ankka`, `ankka-flow` | ankka, ankka-flow |
 | npm | `ankka`, `ankka-console` | ankka |
