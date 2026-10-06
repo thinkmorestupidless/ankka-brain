@@ -10,6 +10,7 @@ One file per repository. This table is the at-a-glance board; each file has the 
 | [ankka-flow](ankka-flow.md) | streaming pipelines | released, feature 002 in flight | v0.1.0 (2026-09-28) | none (runs beside) | 2026-09-29 | public |
 | [cloudflow](cloudflow.md) | Cloudflow fork | maintenance, frozen | v0.1.0 (Akka line) | none | 2026-09-20 | public |
 | [satisfactory](satisfactory.md) | constraint solving on ankka | released | v0.1.0 (2026-09-29) | 0.7.1 snapshot | 2026-09-29 | public |
+| [ankka-reasoning](ankka-reasoning.md) | reasoning graph on ankka | building | unreleased | ankka 0.10.0, ankka-flow 0.3.0 | 2026-10-06 | public |
 
 Status as of 2026-09-30.
 

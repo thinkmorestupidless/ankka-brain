@@ -24,6 +24,7 @@ agent can find them, never their contents.
 | `docs.ankka.cloud` | ankka docs | GitHub Pages |
 | `flow.ankka.cloud` | ankka-flow docs | GitHub Pages |
 | `satisfactory.ankka.cloud` | satisfactory docs | GitHub Pages |
+| `reasoning.ankka.cloud` | ankka-reasoning docs | GitHub Pages |
 | `dev.ankka.cloud` | planned dev environment | not created |
 | `127.0.0.1.sslip.io:8443` | local kind installation | laptop |
 

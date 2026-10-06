@@ -15,6 +15,7 @@ The repos keep their own logs, and those stay authoritative for anything inside 
 | ankka-flow | `docs/design/version-one.md` |
 | ankka-cloud | `docs/design/hosted-ankka.md` |
 | ankka | `docs/` and `CLAUDE.md` |
+| ankka-reasoning | `specs/NNN-name/research.md`, and `notes/ankka-requests.md` for what it asks of ankka and ankka-flow |
 
 This log is for the rest. When an in-repo decision turns out to constrain a sibling, add an entry
 here that states the cross-repo consequence and links to the in-repo entry. Do not copy the
