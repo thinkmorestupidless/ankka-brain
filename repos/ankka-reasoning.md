@@ -14,7 +14,7 @@ Three decisions (2026-10-06): a prediction market is the first domain; the vocab
 (belief, then market, with a process layer later); history is kept by immutable revisions.
 
 ## Status
-- Stage: building (first feature implemented on branch `001-belief-layer`, in pull request 1)
+- Stage: building (first feature merged to `main`, 2026-10-06; unreleased)
 - As of: 2026-10-06
 - Current release: unreleased
 - Visibility: public
@@ -22,7 +22,7 @@ Three decisions (2026-10-06): a prediction market is the first domain; the vocab
 ## Where it lives
 - Repo: github.com/thinkmorestupidless/ankka-reasoning
 - Local: ~/Documents/projects/thinkmorestupidless/ankka-reasoning
-- Publishes: documentation to `https://reasoning.ankka.cloud/` (GitHub Pages, from `main`). No artifact; one Docker image, `reasoning`, built locally (`just images`)
+- Publishes: documentation to `https://reasoning.ankka.cloud/` (GitHub Pages, from `main`). On a `v*` tag, by `release.yml`: `ankka-reasoning-{graph,belief,market}_3` to Maven Central, the image `ghcr.io/thinkmorestupidless/ankka-reasoning`, the plugin to ankka-marketplace, and a release page with the service descriptor and blueprint attached. No tag has been pushed
 - Runs: on a laptop (`just up`, `just run`). Never deployed to a cluster
 
 ## Depends on / depended on by
@@ -52,8 +52,10 @@ Three decisions (2026-10-06): a prediction market is the first domain; the vocab
   sourced.
 - Requests to the platform are kept in `notes/ankka-requests.md`, each with what it would remove.
 - Docs as in the family: `docs/` built by ankka's docs tool (`ankka-docs`, branch `main`), one
-  skill `ankka-reasoning` rendered into `marketplace/plugins/ankka-reasoning/`. There is no release
-  workflow yet, so nothing pushes the plugin to ankka-marketplace.
+  skill `ankka-reasoning` rendered into `marketplace/plugins/ankka-reasoning/`, pushed to
+  ankka-marketplace by the release.
+- Release as in the family: a tag is the only thing that publishes; the version is dynver's. The
+  image is named `ankka-reasoning`; the service it runs is `reasoning`.
 
 ## Open questions
 - 2026-10-06: **needs an ankka release after 0.10.0** for `ankka-auth-oidc` (a person's token; the
@@ -70,8 +72,12 @@ Three decisions (2026-10-06): a prediction market is the first domain; the vocab
   lessons as rules and names nothing from it.
 
 ## Recent moves
+- 2026-10-06: release workflow added. It needs five repository secrets (`PGP_SECRET`,
+  `PGP_PASSPHRASE`, `SONATYPE_USERNAME`, `SONATYPE_PASSWORD`, `MARKETPLACE_REPO_TOKEN`), all set,
+  and the GHCR package made public after its first push.
 - 2026-10-06: Apache 2.0 licence added; the nine glossary terms that were *Proposed.* accepted.
-- 2026-10-06: pull request 1 opened for spec 001 and the documentation site; CI green.
+- 2026-10-06: pull request 1 merged: spec 001 and the documentation site, which is live at
+  reasoning.ankka.cloud. Pull request 2 adds the release workflow.
 - 2026-10-06: documentation site added: 24 pages under `docs/`, `mkdocs.yml`, `tools/docs`, the
   `docs` workflow and one skill. Pages was already enabled with the custom domain.
 - 2026-10-06: spec 001 implemented: 76 tasks, 75 done (the on-cluster walkthrough is not), 119
