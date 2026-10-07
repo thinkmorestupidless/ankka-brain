@@ -23,7 +23,8 @@ Three decisions (2026-10-06): a prediction market is the first domain; the vocab
 - Repo: github.com/thinkmorestupidless/ankka-reasoning
 - Local: ~/Documents/projects/thinkmorestupidless/ankka-reasoning
 - Publishes: documentation to `https://reasoning.ankka.cloud/` (GitHub Pages, from `main`). On a `v*` tag, by `release.yml`: `ankka-reasoning-{graph,belief,market}_3` to Maven Central, the image `ghcr.io/thinkmorestupidless/ankka-reasoning`, the plugin to ankka-marketplace, and a release page with the service descriptor and blueprint attached. First published at 0.1.1
-- Runs: on a laptop (`just up`, `just run`). Never deployed to a cluster
+- Runs: on a laptop (`just up`, `just run`), and on the local kind installation as project
+  `reasoning` (release 0.1.1, deployed 2026-10-07). Never on a cloud installation
 
 ## Depends on / depended on by
 - **An ankka application** (Scala 3.9.0), pinned to **ankka 0.10.0** from Maven Central: entities,
@@ -66,12 +67,16 @@ Three decisions (2026-10-06): a prediction market is the first domain; the vocab
   yet run.
 - 2026-10-06: the service sets Pekko's `refresh-interval` to 1s itself to meet its five-second
   time to the graph; asked of ankka as a setting of its own.
-- 2026-10-06: never deployed to a cluster. The blueprint passes `flow verify` and the descriptor
-  decodes under ankka's rules; the on-cluster walkthrough is not run.
+- 2026-10-07: deployed to the local kind installation (release 0.1.1), end to end; never to a
+  cloud one. Found: a project's namespace exists only after its first service is applied, and
+  `flow generate` 0.4.0 cannot be piped to `kubectl` (its note is on stdout); both asked of the
+  siblings in `notes/ankka-requests.md`.
 - 2026-10-06: prior art is another company's repository, not a dependency. The spec carries its
   lessons as rules and names nothing from it.
 
 ## Recent moves
+- 2026-10-07: tier 5 run on kind: the service as `service:shoppingcart/cart`'s writer recorded the
+  launch example and explained it through the cluster's Kafka, sink and Neo4j.
 - 2026-10-06: 0.1.1 released: the three libraries are on Maven Central and the image is on
   ghcr.io. Still to do by hand: make the GHCR package public, and give `MARKETPLACE_REPO_TOKEN`
   write access to ankka-marketplace, then re-run the release's `marketplace` job, which has failed
