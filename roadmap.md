@@ -15,8 +15,19 @@ What is in flight across the family and what waits on what. Per-repo detail is i
 | ankka-flow | v0.1.0 | `002-graph-merge-sink`, 42 of 43, not pushed | none |
 | cloudflow | v0.1.0 (Akka line) | none | none |
 | satisfactory | v0.1.0 | `architecture-diagram` | 0.7.1 snapshot |
+| ankka-casino | unreleased | `main`, specs 001, 002, 012, 013 of 19 | none yet; needs 038 to 044 |
 
 ## Chains: what waits on what
+
+**ankka-casino on ankka (added 2026-10-08)**
+1. ankka specs 038 to 044 are written on ankka's `specs-038-044` branch, driven by
+   ankka-casino's real-money needs: 038 secret store backends, 039 GCS object storage, 040
+   cross-project access, 041 backups and recovery, 042 personal data erasure, 043 topic
+   retention, 044 cloud provider. Pull request to open in ankka; none implemented.
+2. Create `ankka-gcp` after 044 is planned: the Google cloud provider, holding the
+   owner-equivalent IAM power the operator must not.
+3. ankka-casino pins the ankka release that carries 038 to 044, records the original with
+   `ankka-port`, and ports services in its build order. Detail in the eitheror brain.
 
 **Getting ankka-cloud live on the hub**
 1. Merge ankka-deployments PR #9 (release identity admits ankka-cloud), then `terraform apply` in `environments/ops/terraform`.

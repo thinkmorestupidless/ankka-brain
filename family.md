@@ -24,8 +24,14 @@ beside it.
 | ankka-flow | a layer beside ankka | streaming pipelines over the Kafka topics ankka services publish; not a dependency in either direction |
 | cloudflow | ancestor of ankka-flow | maintained fork on the same Pekko line; frozen for its existing consumers |
 | ankka-reasoning | an ankka application, first feature built | a reasoning graph whose records are ankka entities, published as graph deltas for ankka-flow's merge sink |
+| ankka-casino | an ankka application, owned by eitheror | eitheror's casino and payments as services on ankka; the first real-money consumer, and the first outside thinkmorestupidless |
 
 The control plane inside `ankka` is itself an ankka application. The operator deliberately is not.
+
+ankka-casino is `eitheror-io/ankka-casino`, not a thinkmorestupidless repo, and its checkout is
+not a sibling here. It is in the map because it consumes ankka and because what it needs shapes
+ankka's specs. Planned beside it: `ankka-gcp`, the Google cloud provider that implements ankka
+spec 044, holding the owner-equivalent IAM power the operator must not.
 
 ## Dependency and pinning chain
 
@@ -41,6 +47,7 @@ The control plane inside `ankka` is itself an ankka application. The operator de
 | ankka-cloud | ankka-deployments | hub composition, four Secrets, namespace | not yet written | Flux from `clusters/<env>/` |
 | satisfactory, ankka-flow | ankka-marketplace | one plugin directory each | n/a | release job pushes `plugins/<project>/` |
 | ankka-reasoning | ankka, ankka-flow | SDK and runtime; the graph delta contract and the merge sink | ankka 0.10.0; ankka-flow 0.3.0 (sidecar image) | pinned 2026-10-06. Wants the next ankka release (person tokens, single-file feature suites) and ankka-flow's sidecar package made public |
+| ankka-casino | ankka | SDK and runtime; specs 038 to 044 (secret store backends, GCS, cross-project access, backups and recovery, personal data erasure, topic retention, cloud provider); `ankka-port`; the `ankka@ankka` skills | not yet pinned | specifying as of 2026-10-08; waits on a release carrying 038 to 044, then `ankka-gcp` for its GKE installation |
 
 Two pins are out of policy today: satisfactory on a snapshot and a branch, ankka-deployments three
 minor versions behind a release its hosted product needs. See `roadmap.md`.
