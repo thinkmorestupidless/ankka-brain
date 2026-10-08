@@ -23,7 +23,7 @@ What is in flight across the family and what waits on what. Per-repo detail is i
 1. ankka specs 038 to 044 are written on ankka's `specs-038-044` branch, driven by
    ankka-casino's real-money needs: 038 secret store backends, 039 GCS object storage, 040
    cross-project access, 041 backups and recovery, 042 personal data erasure, 043 topic
-   retention, 044 cloud provider. Pull request to open in ankka; none implemented.
+   retention, 044 cloud provider. Pull request thinkmorestupidless/ankka#96; none implemented.
 2. Create `ankka-gcp` after 044 is planned: the Google cloud provider, holding the
    owner-equivalent IAM power the operator must not.
 3. ankka-casino pins the ankka release that carries 038 to 044, records the original with
