@@ -15,12 +15,12 @@ without BSL. `akka-divergences.md` is written for them. Do not assume this audie
 else; explain the model from scratch in public docs.
 
 ## Operators of an installation
-Whoever runs an ankka installation: today Trevor on arrakis, tomorrow a self-hosting team.
-`docs/platform/` and ankka-deployments speak to them. They care about the lifecycle scripts,
+Whoever runs an ankka installation: today one person on the hosted installation, tomorrow a
+self-hosting team. `docs/platform/` and the private infrastructure repo speak to them. They care about the lifecycle scripts,
 PKI, backups (not yet solved), and what a release moves.
 
 ## Customers of the hosted product
-A person who signs up on www.ankka.cloud, pays, and deploys with the CLI. ankka-cloud's pages,
+A person who signs up on www.ankka.cloud, pays, and deploys with the CLI. the hosted product's pages,
 pricing and emails speak to them. They see organizations, plans and capacity, never Kubernetes.
 
 ## Teams building on the sibling products

@@ -4,7 +4,8 @@
 Accepted 2026-09-30
 
 ## Repos affected
-All six. Each gains a line in its `CLAUDE.md` pointing at `../ankka-brain`. None moves any content here.
+All six at the time. Each gains a line in its `CLAUDE.md` pointing at `../ankka-brain`. None moves any content here.
+Amended by `0011`: the brain now covers the public repos only; the private ones have a brain of their own.
 
 ## Context
 Six repositories share a thesis, a Pekko line, a release model, a docs tool, a marketplace, an

@@ -29,7 +29,7 @@ applied to Akka.
   `satisfactory-solver`; docs at satisfactory.ankka.cloud (GitHub Pages); Claude Code plugin
   `satisfactory` pushed into `thinkmorestupidless/ankka-marketplace` on `v*` tags
 - Runs: any ankka installation, as project `satisfactory` with services `api` (exposed, 3 x
-  `small`) and `solver` (3 x `large`, one slot each). Not deployed on arrakis as of 2026-09-30
+  `small`) and `solver` (3 x `large`, one slot each). Not deployed on a hosted installation as of 2026-09-30
 
 ## Depends on / depended on by
 - **Consumes `ankka`** libraries `ankka-{sdk,runtime,http,agent,testkit}`. Pinned to a locally
@@ -45,7 +45,6 @@ applied to Akka.
   `CommandContext`. Phase 5 (dedicated pods, bring-your-own model) is blocked on `AnkkaJob`.
 - **Direction rule**: ankka never depends on satisfactory; `protocol`, `client`, `model-spi`,
   `models` and `runner` never depend on ankka.
-- No relation to `ankka-cloud` or `ankka-deployments` today.
 
 ## Read first
 1. `README.md`: the shape in five lines, module table, run it in one process.
@@ -67,7 +66,7 @@ applied to Akka.
 
 ## Open questions
 - 2026-09-30: `V.ankka` snapshot pin is stale; v0.8.0 or later carries what it waits for.
-- 2026-09-30: T070 open, tier 5 deploy on a local ankka; a local kind cluster would switch the kubectl context away from the production GKE cluster.
+- 2026-09-30: T070 open, tier 5 deploy on a local ankka; a local kind cluster would switch the kubectl context away from the production cluster.
 - 2026-09-30: Envoy's default 15 s route timeout cuts SSE streams through the gateway; ankka's operator does not yet override it on the `HTTPRoute`.
 - 2026-09-30: V5 (gateway idle timeout, gzip through the gateway) and V6 (hour-long solve keeps heartbeats on `large`) unverified.
 - 2026-09-30: `/internal/*` is internet-reachable with only the runner token in front.

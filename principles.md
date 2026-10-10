@@ -15,7 +15,7 @@ Beliefs that show up in real decisions across more than one repo. Each has a pla
 5. **Split by lifecycle and trust.** Infrastructure, the hosted product, and the platform live in
    separate repos because they change at different speeds, are read by different people, and hold
    different credentials. Nothing installation-specific goes in a public repo.
-6. **Be your own customer.** ankka-cloud, satisfactory and the control plane are ankka
+6. **Be your own customer.** The hosted product, satisfactory and the control plane are ankka
    applications. What they cannot do becomes an ankka feature request (`notes/ankka-requests.md`
    in satisfactory is the model).
 7. **Only a tag publishes.** Versions come from git tags; no version file, no publishing by hand
@@ -23,6 +23,6 @@ Beliefs that show up in real decisions across more than one repo. Each has a pla
 8. **The honest not-implemented list.** Every repo keeps a limitations page and does not promise
    past it. Docs pages stand alone and tell no history.
 9. **Traps are written down the day they cost time.** ankka's CLAUDE.md carries about 120 dated
-   ones; ankka-deployments has its traps sections. Read the section for the area before touching it.
+   ones; the infrastructure repo has its traps sections. Read the section for the area before touching it.
 10. **Same conventions across repos so people move between them.** Justfile, spec-kit, scalafmt
     hook, serialised tests, docs tool, marketplace plugin, `FLOW_*` mirroring `ANKKA_*`.

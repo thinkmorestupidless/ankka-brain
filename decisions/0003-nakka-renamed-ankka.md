@@ -5,7 +5,7 @@ Accepted September 2026 (recorded 2026-09-30)
 
 ## Repos affected
 ankka (done), cloudflow (text still says nakka; leave it, it is history), ankka-flow (older text),
-ankka-deployments (label domain and CRD names follow ankka). New repos use `ankka` only.
+the infrastructure repo (label domain and CRD names follow ankka). New repos use `ankka` only.
 
 ## Context
 The platform was `nakka` through its unreleased life. Every package, artifact, image, namespace,

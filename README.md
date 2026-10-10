@@ -1,20 +1,24 @@
 # ankka-brain
 
-Source of truth for everything an agent (or a new collaborator) needs to know about the ankka
-family of repositories that is not already written down inside one of them: what the family is,
-how the repos relate, what each one owns, the decisions that cut across more than one, and the
+Source of truth for everything an agent (or a new collaborator) needs to know about the public
+ankka repositories that is not already written down inside one of them: what the family is, how
+the repos relate, what each one owns, the decisions that cut across more than one, and the
 conventions they all share.
 
-The family, as of 2026-09-30:
+The public family, as of 2026-10-10:
 
 | Repo | Role |
 |---|---|
 | [ankka](repos/ankka.md) | the platform: runtime, operator, control plane, CLI, SDKs |
-| [ankka-cloud](repos/ankka-cloud.md) | the hosted product: sign up, subscribe, get an organization |
-| [ankka-deployments](repos/ankka-deployments.md) | the infrastructure an installation runs on (private) |
 | [ankka-flow](repos/ankka-flow.md) | streaming pipelines beside ankka |
 | [cloudflow](repos/cloudflow.md) | the maintained Cloudflow fork ankka-flow descends from |
 | [satisfactory](repos/satisfactory.md) | constraint solving as a service, built on ankka |
+| [ankka-reasoning](repos/ankka-reasoning.md) | a reasoning graph, built on ankka |
+| [ankka-contrib](repos/ankka-contrib.md) | integrations on ankka's SDK that are not the platform's |
+
+The family also has private members: the hosted product, the infrastructure installations run on,
+and products built on ankka for customers. They are mapped in `ankka-brain-private`, a sibling
+checkout for those with access, which extends every file here. See `decisions/0011`.
 
 ## What lives here and what does not
 
@@ -28,8 +32,12 @@ This brain holds only what has no single-repo home:
 - decisions that touch two or more repos
 - conventions every repo follows, written once
 - the vocabulary that crosses repo boundaries
-- where things run and publish, as pointers
+- where things publish, as pointers
 - status: what is in flight across the family and what is waiting on what
+
+It never holds: installation values, cluster or cloud project names, secret names beyond the
+public repos' own CI, a private repo's status or pins, or a design treatment. Those are the
+private brain's.
 
 ## Layout
 
@@ -39,13 +47,14 @@ ankka-brain/
 ├── principles.md        # beliefs that show up in real decisions across the family
 ├── conventions.md       # how every repo is built, tested, released; agent rules
 ├── glossary.md          # cross-repo vocabulary
-├── infrastructure.md    # where things run and publish; pointers, never secrets
+├── infrastructure.md    # where things publish; pointers, never secrets
 ├── audiences.md         # who the family is for
 ├── voice.md             # how ankka talks in docs, READMEs, errors, CLI output
 ├── roadmap.md           # what is in flight and what waits on what, date-stamped
 ├── reuse-map.md         # what is shared, what should be, what deliberately is not
-├── repos/               # one file per repo, plus a status index
-└── decisions/           # ADR-style log of cross-repo calls; links to in-repo logs
+├── repos/               # one file per public repo, plus a status index
+├── decisions/           # ADR-style log of cross-repo calls; links to in-repo logs
+└── workspace/           # the CLAUDE.md to install in the directory above the checkouts
 ```
 
 ## Operating principles
@@ -61,11 +70,18 @@ ankka-brain/
    vocabulary.
 5. **Update the index, not just the file.** A status change goes in `repos/README.md` too. A
    cross-repo decision goes in `decisions/`.
+6. **Public means public.** Anything a private repo would not publish does not go here. When in
+   doubt, it goes in the private brain with a role-only mention here.
 
 ## Wiring into Claude Code
 
-`CLAUDE.md` in this repo imports the always-on files. Each family repo's own `CLAUDE.md` should
-add a line pointing here, for example:
+Check out the family repos as siblings under one directory, this repo among them, and copy
+`workspace/CLAUDE.md` into that directory. Claude Code loads a `CLAUDE.md` from every directory
+above the one it starts in, so the brain's always-on files reach every session in every family
+repo. `workspace/README.md` has the steps and the one approval prompt to expect.
+
+Each family repo's own `CLAUDE.md` may also add a line pointing here, for sessions started
+without the workspace file:
 
 ```
 The family-level context (repo map, cross-repo decisions, shared conventions) lives in the
@@ -73,14 +89,17 @@ sibling checkout ../ankka-brain. Read ../ankka-brain/family.md and ../ankka-brai
 before cross-repo work.
 ```
 
-Keep the checkouts as siblings under one directory so relative paths hold.
+Those with access to the private repos add `ankka-brain-private` beside this checkout and its
+`workspace/CLAUDE.local.md` beside the workspace `CLAUDE.md`.
 
 ## Maintenance ritual
 
-- **When a release is cut** in any repo: update the version table in `family.md` and the repo's
-  row in `repos/README.md`.
+- **When a release is cut** in any public repo: update the version table in `family.md` and the
+  repo's row in `repos/README.md`.
 - **When a feature spec is opened or closed:** update `roadmap.md`.
 - **When a decision touches two repos:** log it in `decisions/`, then link it from each repo's
-  in-repo log or design doc.
+  in-repo log or design doc. If a private repo is affected, log it in the private brain instead.
 - **When the same thing is built twice:** add a row to `reuse-map.md`.
+- **When a repo changes visibility:** move its file, its rows and its decisions to the other brain
+  in one commit on each side.
 - **Monthly:** re-read `family.md` and `roadmap.md` for anything that has quietly gone stale.
