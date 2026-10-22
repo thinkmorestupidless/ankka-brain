@@ -15,7 +15,7 @@ members' chains (the hosted product going live, the installations, the downstrea
 | ankka-flow | v0.1.0 | `002-graph-merge-sink`, 42 of 43, not pushed | none |
 | cloudflow | v0.1.0 (Akka line) | none | none |
 | satisfactory | v0.1.0 | `architecture-diagram` | 0.7.1 snapshot |
-| ankka-reasoning | 0.1.1 | none | 0.10.0; ankka-flow 0.3.0 |
+| ankka-reasoning | 0.1.1 | `002-process-layer`, all seven phases merged to `main` (2026-10-22), release 0.2.0 owed | 0.12.0; ankka-contrib's sink image 0.1.0 (no ankka-flow) |
 | ankka-contrib | v0.1.0 (2026-10-08) | none | 0.11.0 |
 
 Known to be behind as of 2026-10-10: ankka is at v0.11.0 with specs 038 to 048 merged or in pull
@@ -39,12 +39,13 @@ ankka feature 037 and the Neo4j sink moving to ankka-contrib. Refresh the rows a
 1. Push `002-graph-merge-sink`, finish T037 (tier 6 on kind beside ankka, recorded), PR, tag v0.2.0.
 2. Next named: sidecar p90 latency (23 ms).
 3. Waiting on ankka: the operator configuring Kafka for services in a cluster by default.
-4. Added 2026-10-10: ankka-flow's capabilities become ankka feature 037; the Neo4j sink is ankka-contrib's. ankka-reasoning still pins ankka-flow's sidecar image and should move.
+4. Added 2026-10-10: ankka-flow's capabilities become ankka feature 037; the Neo4j sink is ankka-contrib's. Done 2026-10-18: ankka-reasoning moved to ankka-contrib's sink image (spec 002, phase 1) and pins nothing of ankka-flow.
 
-**ankka-reasoning (added 2026-10-06)**
-1. Needs an ankka release after 0.10.0 for `ankka-auth-oidc` and a single-file `GherkinSuite`; both on ankka's `main`.
-2. Needs ankka-flow's sidecar package on GHCR made public, or to move to ankka-contrib's sink.
-3. Asks ankka for a `refresh-interval` setting of its own; asks the siblings for a project namespace before the first service and a pipeable `flow generate`.
+**ankka-reasoning (added 2026-10-06, refreshed 2026-10-21)**
+1. Done: ankka 0.12.0 carries `ankka-auth-oidc`, the single-file `GherkinSuite` and the blueprints; the service pins it. Done: moved to ankka-contrib's sink image; nothing of ankka-flow is pinned.
+2. Spec 002, the process layer, is built and merged to `main` (phases 1 to 7, PRs #7 to #14, last merged 2026-10-22). Next a release (0.2.0) with the process layer and four library modules; the release job's module check was widened to four in phase 7.
+3. Asks ankka for the worker in `RunRef`, tools with more than three parameters, a tool that fails its run, a judgment provider over a text model, `RunEntity.start` answering the started state, and the `refresh-interval` setting; asks ankka's graph sink for a way to ask whether elements have been applied; asks ankka-contrib for an `arm64` sink image (`notes/ankka-requests.md`, 6, 10, 14 to 19).
+4. Not yet run: tiers 4 (by hand on a laptop) and 5 (a local kind installation) of spec 002's quickstart; the live suite ten times with keys (SC-007).
 
 **cloudflow**
 1. Write down its status: frozen for its existing consumer, new work in ankka-flow and now ankka. Update `CLAUDE.md`'s "next on it" line. See `decisions/0004`.
