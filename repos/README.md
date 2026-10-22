@@ -8,7 +8,7 @@ The private repositories have the same board in `ankka-brain-private/repos/READM
 | [ankka](ankka.md) | the platform | released, active daily | v0.9.1 (2026-09-29) | n/a | 2026-09-30 | public |
 | [ankka-flow](ankka-flow.md) | streaming pipelines | released, feature 002 in flight | v0.1.0 (2026-09-28) | none (runs beside) | 2026-09-29 | public |
 | [cloudflow](cloudflow.md) | Cloudflow fork | maintenance, frozen | v0.1.0 (Akka line) | none | 2026-09-20 | public |
-| [satisfactory](satisfactory.md) | constraint solving on ankka | released | v0.1.0 (2026-09-29) | 0.7.1 snapshot | 2026-09-29 | public |
+| [ankka-satisfaction](satisfactory.md) | constraint solving on ankka (product `satisfactory`) | released | v0.1.0 (2026-09-29) | 0.7.1 snapshot | 2026-09-29 | public |
 | [ankka-reasoning](ankka-reasoning.md) | reasoning graph on ankka | released | 0.1.1 | ankka 0.10.0, ankka-flow 0.3.0 | 2026-10-06 | public |
 | [ankka-contrib](ankka-contrib.md) | integrations on ankka's SDK | released | v0.1.0 (2026-10-08) | 0.11.0 | 2026-10-08 | public |
 | [ankka-predictions](ankka-predictions.md) | a prediction market's domain as libraries | designing, specs 004 to 006 drafted | unreleased | to be set in `build.sbt` | 2026-10-22 | public by decision; private until the consumer's pages are out |

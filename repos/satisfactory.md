@@ -22,7 +22,7 @@ applied to Akka.
 - Visibility: public
 
 ## Where it lives
-- Repo: github.com/thinkmorestupidless/satisfactory
+- Repo: github.com/thinkmorestupidless/ankka-satisfaction (renamed from `satisfactory` on 2026-10-19; the old URL redirects). The product, its artifacts, images, config prefix and docs host keep the name `satisfactory`
 - Local: ~/Documents/projects/thinkmorestupidless/satisfactory
 - Publishes: `com.thinkmorestupidless` artifacts `satisfactory-protocol`, `satisfactory-model-spi`,
   `satisfactory-client`, `ankka-satisfactory` via `sbt ci-release`; images `satisfactory-api`,

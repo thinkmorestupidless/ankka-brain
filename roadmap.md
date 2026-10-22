@@ -62,3 +62,9 @@ ankka-reasoning's `notes/ankka-requests.md`, so they are in one place. None had 
 - Serving `RuntimeExtension.routes`; a clock in `CommandContext`
 - Operator configuring Kafka for services by default
 - A projection refresh interval as a setting; a project namespace before its first service
+- One MCP endpoint for a whole project (added 2026-10-19, to be spec 055 after 054 lands): a front
+  door whose tools are every sibling service's, derived from the services' reports as they are
+  deployed and removed, forwarding each call to its owner as one in-cluster hop on behalf of the
+  customer the door verified. The new trust relation it needs, a call made on behalf of a principal
+  that a named workload attests, is its heart; 054 keeps client keys per service and tool names
+  prefix-ready so it is not precluded. Asked for from a previous multi-service system's experience.
