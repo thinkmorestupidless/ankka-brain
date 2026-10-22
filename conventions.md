@@ -28,7 +28,7 @@ One feature, one branch `NNN-name`, one worktree. The steps, in order, and who r
 | 4 tasks | `/speckit-tasks` | Fable | `tasks.md` | no |
 | 5 analyze | `/speckit-analyze` | Fable | findings across spec, plan and tasks | no: every remediation it suggests is applied, then analyze runs again; it stops when no finding above low remains, or the rest is put to Trevor |
 | 6 implement | `/speckit-implement` | **Opus** (`claude --model opus` in the worktree) | the code, the ticks in `tasks.md`, the suites | **yes** on anything the spec or plan left open or that would change a contract |
-| 7 pull request | `gh pr create` | Opus | the PR, from the branch, on the right base (below) | **yes**: Trevor approves and merges; an agent never merges |
+| 7 pull request | `gh pr create` | Opus | the PR, from the branch, on the right base (below), as a draft until its CI is green | **yes**, once CI passes: Trevor approves and merges; an agent never merges |
 
 Rules that go with the table:
 - Steps 1 to 5 are one session on Fable; step 6 is a fresh session on Opus started in the same
@@ -45,6 +45,12 @@ Rules that go with the table:
 - **The PR.** Title in the family's commit style; body with the spec's path, the tick count, the
   commands run and their results, the contracts touched (ideally none), what it waits on, and the
   Claude Code trailer. Trevor approves and merges; `main` is branch-protected everywhere.
+- **CI before a human.** A PR is raised as a draft (`gh pr create --draft`) and stays one until
+  every CI check on it passes; only then is it marked ready (`gh pr ready`) and Trevor told a
+  review is waiting. A red check is the agent's to attend to first: read the failing job, fix it on
+  the branch or show with evidence that it is a known flake of `main`, and say which in the PR. A
+  PR whose base or body changes (a stacked PR merged into it, a rebase) goes back through the same
+  gate before the next request for review. Trevor's time is spent on green PRs only (2026-10-22).
 - A remediation from step 5 that would change a scenario goes through the features file first and
   `just check` again; a remediation that would change a decision is a question for Trevor.
 - Nothing is committed to `main`, tagged, published or deployed by an agent at any step.
