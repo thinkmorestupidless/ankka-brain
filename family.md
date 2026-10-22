@@ -30,6 +30,7 @@ its content, its values or its status.
 | cloudflow | ancestor of ankka-flow | maintained fork on the same Pekko line; frozen for its existing consumers |
 | ankka-reasoning | an ankka application, first feature built | a reasoning graph whose records are ankka entities, published as graph deltas for the merge sink |
 | ankka-contrib | integrations on ankka's SDK | reusable pieces that are not the platform's, one module per integration; first the Neo4j graph store and sink image |
+| ankka-predictions | two libraries on ankka-core | a prediction market's exchange and markets domains and their components, composed by a private module owned by another company; the first family library whose consumer is outside the family |
 
 The control plane inside `ankka` is itself an ankka application. The operator deliberately is not.
 
@@ -49,6 +50,7 @@ one owned by another company. Their names, pins and status are in the private br
 | satisfactory, ankka-flow, ankka-reasoning | ankka-marketplace | one plugin directory each | n/a | release job pushes `plugins/<project>/` |
 | ankka-reasoning | ankka, ankka-flow | SDK and runtime; the graph delta contract and the merge sink | ankka 0.10.0; ankka-flow 0.3.0 (sidecar image) | pinned 2026-10-06. Wants the next ankka release (person tokens, single-file feature suites) and ankka-flow's sidecar package made public |
 | ankka-contrib | ankka | `ankka-sdk` and the graph sink module | 0.11.0 | Maven Central; released on its own cadence against a published ankka |
+| ankka-predictions | ankka | `ankka-core` for the domains; the SDK and testkit for the components | not yet (spec 004 says the family's current release) | `build.sbt`, Maven Central; nothing built yet |
 
 One pin is out of policy today: satisfactory on a snapshot and a branch. See `roadmap.md`. The
 private members' pins, including the installation tag and the hosted product's version, are in the
