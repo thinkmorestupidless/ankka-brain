@@ -4,15 +4,50 @@ How every repo in the family is built, tested, released and worked on. A repo fi
 deviations from this.
 
 ## Feature work: spec-kit
-- `.specify/` with speckit 0.14.1, Claude integration, sequential numbering.
+- `.specify/` with speckit 0.14.1, Claude integration, sequential numbering, and the
+  `speckit-bdd` extension (`speckit-bdd` v0.2.0: the `bdd` preset, `features/`, `GLOSSARY.md`,
+  the checker as `just check`). A repo without the extension gets it before its next spec.
 - `specs/NNN-name/` holds `spec.md`, `plan.md`, `research.md`, `data-model.md`, `contracts/`,
-  `quickstart.md`, `tasks.md`, `checklists/`.
+  `quickstart.md`, `tasks.md`, `checklists/`. Scenarios live once, in `features/`; the spec
+  names them.
 - `research.md` is the per-feature decision record: numbered R-entries, a "verify at
   implementation" list, a "found during implementation" section, measurements at the end.
 - `spec.md` status lines are not maintained; the tick count in `tasks.md` is the real status.
 - `.specify/memory/constitution.md` is the unfilled template in every repo. Plans use ankka's
   `CLAUDE.md` principles as the constitution check instead.
 - Skills under `.claude/skills/speckit-*`.
+
+### The feature workflow (2026-10-22)
+One feature, one branch `NNN-name`, one worktree. The steps, in order, and who runs them:
+
+| Step | Command | Model | Produces | Stop for Trevor? |
+|---|---|---|---|---|
+| 1 specify | `/speckit-specify` | Fable | `spec.md`; the bdd hook writes the scenarios into `features/` and the glossary | **yes**: every `NEEDS CLARIFICATION` the spec raises is put to Trevor as options with implications; the spec is not planned until he answers |
+| 2 clarify | `/speckit-clarify` | Fable | the bdd hook runs the checker first and each finding becomes a question; answers are encoded into the spec | **yes**: the questions are Trevor's |
+| 3 plan | `/speckit-plan` | Fable | `plan.md`, `research.md`, `data-model.md`, `contracts/`, `quickstart.md` | no, unless the plan finds a decision the spec left open |
+| 4 tasks | `/speckit-tasks` | Fable | `tasks.md` | no |
+| 5 analyze | `/speckit-analyze` | Fable | findings across spec, plan and tasks | no: every remediation it suggests is applied, then analyze runs again; it stops when no finding above low remains, or the rest is put to Trevor |
+| 6 implement | `/speckit-implement` | **Opus** (`claude --model opus` in the worktree) | the code, the ticks in `tasks.md`, the suites | **yes** on anything the spec or plan left open or that would change a contract |
+| 7 pull request | `gh pr create` | Opus | the PR, from the branch, on the right base (below) | **yes**: Trevor approves and merges; an agent never merges |
+
+Rules that go with the table:
+- Steps 1 to 5 are one session on Fable; step 6 is a fresh session on Opus started in the same
+  worktree, which reads `.specify/feature.json`, `tasks.md` and the plan and nothing from the
+  earlier session. The switch is the point: the planning model is not asked to keep the context.
+- `just check` is green before step 3 and before step 7.
+- A feature that depends on a sibling repository's unmerged work codes against that work's
+  approved `contracts/`, never against its routes or code, and says so in the PR.
+- **The base branch.** The PR targets `main` unless the feature's branch was cut from another
+  feature branch that is not yet merged; then it targets that branch and the PR says which PR it
+  waits on. When the base PR merges, the stacked PR is retargeted to `main` and rebased before
+  it is reviewed. Never target a branch whose PR Trevor has not approved without saying so in the
+  PR's first line.
+- **The PR.** Title in the family's commit style; body with the spec's path, the tick count, the
+  commands run and their results, the contracts touched (ideally none), what it waits on, and the
+  Claude Code trailer. Trevor approves and merges; `main` is branch-protected everywhere.
+- A remediation from step 5 that would change a scenario goes through the features file first and
+  `just check` again; a remediation that would change a decision is a question for Trevor.
+- Nothing is committed to `main`, tagged, published or deployed by an agent at any step.
 
 ## Build and test (JVM repos)
 - Scala 3.9.0, JDK 21, sbt 1.12.15, munit, testcontainers. Docker required for tests.
