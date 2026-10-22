@@ -17,6 +17,7 @@ members' chains (the hosted product going live, the installations, the downstrea
 | satisfactory | v0.1.0 | `architecture-diagram` | 0.7.1 snapshot |
 | ankka-reasoning | 0.1.1 | `002-process-layer`, all seven phases merged to `main` (2026-10-22), release 0.2.0 owed | 0.12.0; ankka-contrib's sink image 0.1.0 (no ankka-flow) |
 | ankka-contrib | v0.1.0 (2026-10-08) | none | 0.11.0 |
+| ankka-predictions | unreleased | `main` only; specs 004 to 006 drafted (2026-10-22) | not yet pinned |
 
 Known to be behind as of 2026-10-10: ankka is at v0.11.0 with specs 038 to 048 merged or in pull
 requests; ankka-flow is at v0.5.0 and its README calls it deprecated, its capabilities becoming

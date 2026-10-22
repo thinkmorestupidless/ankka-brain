@@ -11,6 +11,7 @@ The private repositories have the same board in `ankka-brain-private/repos/READM
 | [satisfactory](satisfactory.md) | constraint solving on ankka | released | v0.1.0 (2026-09-29) | 0.7.1 snapshot | 2026-09-29 | public |
 | [ankka-reasoning](ankka-reasoning.md) | reasoning graph on ankka | released | 0.1.1 | ankka 0.10.0, ankka-flow 0.3.0 | 2026-10-06 | public |
 | [ankka-contrib](ankka-contrib.md) | integrations on ankka's SDK | released | v0.1.0 (2026-10-08) | 0.11.0 | 2026-10-08 | public |
+| [ankka-predictions](ankka-predictions.md) | a prediction market's domain as libraries | designing, specs 004 to 006 drafted | unreleased | to be set in `build.sbt` | 2026-10-22 | public by decision; private until the consumer's pages are out |
 
 Status as of 2026-10-10 for ankka-contrib; the other rows are as of the date in their last
 column and are known to be behind (ankka is at v0.11.0, ankka-flow at v0.5.0).

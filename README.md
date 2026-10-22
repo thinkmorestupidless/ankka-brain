@@ -15,6 +15,7 @@ The public family, as of 2026-10-10:
 | [satisfactory](repos/satisfactory.md) | constraint solving as a service, built on ankka |
 | [ankka-reasoning](repos/ankka-reasoning.md) | a reasoning graph, built on ankka |
 | [ankka-contrib](repos/ankka-contrib.md) | integrations on ankka's SDK that are not the platform's |
+| [ankka-predictions](repos/ankka-predictions.md) | a prediction market's domain as libraries on ankka-core; the module that runs it is private |
 
 The family also has private members: the hosted product, the infrastructure installations run on,
 and products built on ankka for customers. They are mapped in `ankka-brain-private`, a sibling
