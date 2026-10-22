@@ -62,10 +62,10 @@ deviations from this.
 - Manifests canonical under `kustomization/components/`; JVM resources are symlinks into them.
 - Operators follow render/execute: pure `render(resource, settings, observed)` returning actions,
   one executor doing server-side apply.
-- Installation values never in a public repo. Overlays live in ankka-deployments.
+- Installation values never in a public repo. Overlays live in the private infrastructure repo.
 
 ## Agents working in the family
 - Read the repo's `CLAUDE.md` before anything, then the family map here.
-- Internal design treatments go to `ankka-deployments/design/`.
-- Cross-repo decisions go to `decisions/` here, with a link from the in-repo record.
+- Internal design treatments go to the private infrastructure repo, never a public one; the private brain names it.
+- Cross-repo decisions go to `decisions/` here, or to the private brain when a private repo is affected, with a link from the in-repo record.
 - Never publish by hand. Never re-tag. Never put a secret value in git.

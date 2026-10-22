@@ -4,7 +4,7 @@
 Accepted (predates this log; recorded 2026-09-30)
 
 ## Repos affected
-ankka, cloudflow, ankka-flow, and by extension every ankka application (ankka-cloud, satisfactory).
+ankka, cloudflow, ankka-flow, and by extension every ankka application (satisfactory, ankka-reasoning, the hosted product).
 No repo may add a dependency that reintroduces a BSL licence on the path a customer runs. Pekko
 family versions are bumped in ankka first and mirrored elsewhere.
 

@@ -37,5 +37,5 @@ leverage, robust, seamless, powerful, solution (as a noun for a product), journe
 - Public docs: teach from scratch; assume Kubernetes, not Akka.
 - CLAUDE.md files: terse, imperative, rules and traps; "do not optimise this back".
 - Design treatments and decision logs: reasons and rejected alternatives, first person allowed.
-- ankka-cloud customer pages: same register, fewer identifiers, no Kubernetes vocabulary.
+- Hosted product customer pages: same register, fewer identifiers, no Kubernetes vocabulary.
 - Errors and refusals: say what was refused and what to do instead, in one line.

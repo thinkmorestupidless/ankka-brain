@@ -7,7 +7,7 @@ Accepted (predates this log; recorded 2026-09-30)
 Every repo: no `ThisBuild / version`, no version file; sbt-dynver from the nearest `v*` tag;
 placeholders `0.0.0` in the tree rewritten by release jobs; only a tag publishes; the workflow
 refuses a dirty tree or a tag that does not match. Consumers pin a published release:
-ankka-cloud a Maven Central version, ankka-deployments a git tag, ankka-flow and satisfactory a
+an application a Maven Central version, an installation a git tag, ankka-flow and satisfactory a
 tag of the docs tool.
 
 ## Context
@@ -26,9 +26,8 @@ snapshots. A snapshot pin is a temporary exception that must name the commit it 
 ## Consequences
 - satisfactory's `V.ankka` snapshot pin (waiting for commit 0c2abd6 in a release) is out of
   policy and named in `../roadmap.md`.
-- ankka-deployments' "arrakis runs only tags dev has run" rule cannot hold until `dev` exists.
 - First publish of a new npm or crates package is by hand, once, then never again.
 
 ## Related
 - ankka `CLAUDE.md` "Publishing"; cloudflow `ROADMAP.md` (tag-driven release, `v0.1.0` naming)
-- ankka-deployments `CLAUDE.md` rule 5 (a release is one commit)
+- the infrastructure repo's rule that a release is one commit (private brain)

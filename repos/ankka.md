@@ -28,23 +28,21 @@ deliberate departure from Akka is listed in `docs/reference/akka-divergences.md`
   `ankka-console`, `sample-shopping-cart`; native CLI tarballs on the GitHub release; Homebrew
   `thinkmorestupidless/tap/ankka`; subtree pushes to `ankka.g8`, `ankka-action`,
   `ankka-marketplace`, `homebrew-tap`; docs to docs.ankka.cloud
-- Runs: any Kubernetes 1.32+ cluster with its components; production on `arrakis` (see
-  `ankka-deployments.md`), locally on kind cluster `ankka`
+- Runs: any Kubernetes 1.32+ cluster with its components; the hosted installation is in the
+  private brain; locally on kind cluster `ankka`
 
 ## Depends on / depended on by
 ankka depends on no sibling. Everything else depends on it. What each consumes and therefore what
 must not break:
-- **ankka-cloud**: the seven published libraries, the control plane's organization routes and
-  wire types in `ankka-controlplane-api`, `ankka-http` response shapes, the additive-DDL rule,
-  the realm name and role names. Pinned at 0.9.0.
 - **satisfactory**: `ankka-{sdk,runtime,http,agent,testkit}`, `AnkkaTestKit`, Jackson 2.21
   alignment, the docs tool. Pinned at a local 0.7.1 snapshot although v0.8.0 carries what it wants.
-- **ankka-deployments**: `kustomization/components/` layout, the Namespace labels components
-  give, image names, the placeholder-only example overlay `overlays/cloud`. Pinned at v0.6.4.
 - **ankka-flow**: the docs tool at `tools/docs` and its `extra.docs` mkdocs contract; the
   marketplace layout (ankka's release job replaces only `plugins/ankka/`); ankka's conventions.
   Needed `ProjectionRuntime.fromEnv()` to read `ANKKA_KAFKA_BOOTSTRAP_SERVERS`.
 - **cloudflow**: no code dependency; shares the Pekko line. Bump Pekko here, mirror there.
+- **ankka-contrib**: `ankka-sdk` and the graph sink module at 0.11.0.
+- **Private consumers** (the hosted product, the infrastructure repo, the downstream products):
+  what each pins and what must not break for them is in `ankka-brain-private/repos/ankka.md`.
 
 ## Read first
 1. `CLAUDE.md`: architecture, commands, publishing, and about 120 dated traps. Read before any change.
@@ -65,7 +63,7 @@ Beyond `../conventions.md`:
 - Never add `ThisBuild / version`. Nothing in the build may write a tracked file during publish.
 - Never render an HPA. `exit-jvm` only in the kubernetes overlay. Two services never share a
   Postgres database. DDL is additive within a supported range.
-- Internal design treatments go to `ankka-deployments/design/`, not here.
+- Internal design treatments go to the private infrastructure repo, not here.
 - Sidecar protocol version `1.2`; runtime compatibility is same major, minor equal or one below.
 
 ## Open questions
@@ -79,7 +77,7 @@ Beyond `../conventions.md`:
 - 2026-09-30: feature 018 judgments, 36 of 37 tasks, on branch `018-judgments`.
 - 2026-09-29: `v0.9.1`, Rust crate on crates.io (PRs #36 to #38). Console package plus thin host (017, #34). WASM hosting (016, #35).
 - 2026-09-27/28: autonomous agents (015, #32), organization quotas (015, #31), Kafka via env (#30), marketplace per project (#28, #29), docs tool shared (#26), zero trust clusters (014, #27).
-- 2026-09-26: TypeScript SDK (013), native CLI (#11), `ankka init --language`, images to ghcr.io with the ops cache (#13), design docs and arrakis overlay moved to ankka-deployments (#20, #21).
+- 2026-09-26: TypeScript SDK (013), native CLI (#11), `ankka init --language`, images to ghcr.io with a mirror for the installation (#13), design docs and the installation overlay moved to the infrastructure repo (#20, #21).
 - 2026-09-22 to 25: polyglot runtimes (009), public docs and `ankka mcp` (010), hosted ankka (011), endpoint ACLs (012), Homebrew, PyPI.
 
 ## Housekeeping
