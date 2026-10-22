@@ -74,6 +74,8 @@ Beyond `../conventions.md`:
 - The honest not-implemented list is `docs/reference/limitations.md`. Do not promise past it.
 
 ## Recent moves
+- 2026-10-12: spec 051, replicated entities, implemented on branch `051-replicated-entities` (worktree `.claude/worktrees/051-replicated-entities`): one home per entity, followers mirroring the home's journal record for record, handover and replication set as journal records; the `ReplicationTransport` seam (`runtime/replication`) is the contract the private `ankka-replication` builds against, with the runtime's own database transport for one machine; protocol 1.19 in every SDK. Not merged as of this note.
+- 2026-10-11: specs 049 (images for both architectures) and 050 (remote clusters: a cluster the control plane does not run in, tethered by its operator) on branch `specs-049-050`, unmerged; written for `tupile`, a Raspberry Pi cluster, the first arm64 installation. Feature 049 in implementation on branch `049-multi-architecture-images` (worktree `.claude/worktrees/049-multi-architecture-images`, pushed; carries the specs commit): build, release and cluster workflows, the operator's wrong-architecture report, template and docs done; the k3s case and the arm64 leg proved on the cluster workflow; PR not yet opened. The Pi overlay is the infrastructure repo's.
 - 2026-09-30: feature 018 judgments, 36 of 37 tasks, on branch `018-judgments`.
 - 2026-09-29: `v0.9.1`, Rust crate on crates.io (PRs #36 to #38). Console package plus thin host (017, #34). WASM hosting (016, #35).
 - 2026-09-27/28: autonomous agents (015, #32), organization quotas (015, #31), Kafka via env (#30), marketplace per project (#28, #29), docs tool shared (#26), zero trust clusters (014, #27).

@@ -12,7 +12,7 @@ The public family, as of 2026-10-10:
 | [ankka](repos/ankka.md) | the platform: runtime, operator, control plane, CLI, SDKs |
 | [ankka-flow](repos/ankka-flow.md) | streaming pipelines beside ankka |
 | [cloudflow](repos/cloudflow.md) | the maintained Cloudflow fork ankka-flow descends from |
-| [satisfactory](repos/satisfactory.md) | constraint solving as a service, built on ankka |
+| [ankka-satisfaction](repos/satisfactory.md) | constraint solving as a service, built on ankka; the product is `satisfactory` |
 | [ankka-reasoning](repos/ankka-reasoning.md) | a reasoning graph, built on ankka |
 | [ankka-contrib](repos/ankka-contrib.md) | integrations on ankka's SDK that are not the platform's |
 | [ankka-predictions](repos/ankka-predictions.md) | a prediction market's domain as libraries on ankka-core; the module that runs it is private |
