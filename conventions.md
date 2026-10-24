@@ -55,9 +55,11 @@ Rules that go with the table:
   waits on. When the base PR merges, the stacked PR is retargeted to `main` and rebased before
   it is reviewed. Never target a branch whose PR Trevor has not approved without saying so in the
   PR's first line.
-- **The PR.** Title in the family's commit style; body with the spec's path, the tick count, the
-  commands run and their results, the contracts touched (ideally none), what it waits on, and the
-  Claude Code trailer. Trevor approves and merges; `main` is branch-protected everywhere.
+- **The PR.** Title `<type>(<NNN>): short description` (the Git section below); body from
+  `.github/pull_request_template.md`: the spec's path and the tick count under Why, the commands run
+  and their results under How it is tested, the contracts touched (ideally none) and what it waits
+  on under Left out, the review-before-push lines, and the Claude Code trailer. Trevor approves and
+  merges; `main` is branch-protected everywhere.
 - **CI before a human.** A PR is raised as a draft (`gh pr create --draft`) and stays one until
   every CI check on it passes; only then is it marked ready (`gh pr ready`) and Trevor told a
   review is waiting. A red check is the agent's to attend to first: read the failing job, fix it on
@@ -72,8 +74,8 @@ Rules that go with the table:
 - Scala 3.9.0, JDK 21, sbt 1.12.15, munit, testcontainers. Docker required for tests.
 - `.scalafmt.conf` copied from ankka: 3.9.4, scala3 dialect, maxColumn 100, `align.preset = more`,
   `SortModifiers` deliberately absent.
-- `.githooks/pre-commit` runs the scalafmt native CLI on staged Scala; enable with `just hooks`.
-  It refuses unformatted commits.
+- `.githooks/pre-commit` runs the scalafmt native CLI on staged Scala and `.githooks/commit-msg`
+  checks the message is a Conventional Commit; enable both with `just hooks`.
 - Tests are serialised: `Tags.limit(Tags.Test, 1)` and `parallelExecution := false`. Do not
   optimise this back. Long suites run under `caffeinate -i`.
 - Warning-free compile (`-Wunused`).
@@ -84,10 +86,32 @@ Rules that go with the table:
 ## Git
 - Feature branches as git worktrees, either under `.claude/worktrees/<name>` or as a sibling
   directory `../<repo>-<name>`. Dir names drift from branch names; check `git worktree list`.
-- `main` is branch-protected; PRs only. Merge commits carry the PR number.
-- Commit messages are sentence-case declarative statements of the resulting fact, often with the
-  why after a colon. "Feature 009: ..." and "Tasks: T037" for spec-kit work.
-- Trailer `Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>` on commits made with Claude.
+- `main` is branch-protected; PRs only, squash-merged: the PR title becomes the commit on `main`
+  (the repository setting takes the PR title when the PR has more than one commit).
+- **Commit messages are Conventional Commits 1.0.0 (2026-10-24).** Header
+  `<type>(<scope>)!: <description>`, under 72 characters: a type from `feat fix docs test refactor
+  perf build ci chore style revert`; the scope is the spec number for spec work (`feat(057): project
+  tokens and the administrator`), otherwise the area (`fix(operator): ...`, `docs: ...`, `build(deps):
+  ...`); `!` when the change breaks a contract, with a `BREAKING CHANGE: <what and how to migrate>`
+  footer; the description a lower-case imperative phrase with no trailing period. The body says
+  why and what the diff cannot, wrapped at 72, in the family's voice (the resulting fact, the
+  reason after a colon). Spec-kit task commits name their tasks in a `Tasks: T037, T038` footer.
+  Before this date messages were sentence-case statements ("Feature 009: ...", "Tasks: T037"); do
+  not rewrite history to match. `.githooks/commit-msg` refuses anything else (`just hooks`);
+  Dependabot and Scala Steward are configured to `build(deps)`.
+- **The PR title is the same header**, since it becomes `main`'s commit: `feat(057): short
+  description`. The spec number is the scope, not a prefix of its own.
+- **The PR body follows `.github/pull_request_template.md`**: Why, What changed, Left out, How it
+  is tested, Risk and rollback; under about 300 words outside the fenced block of commands and
+  results, bullets of at most two lines, the detail in the spec, `research.md` or the docs and
+  linked. A body that has to be scrolled is a defect in the body. Agents write it from the
+  template file; `gh pr create --body-file` does not insert it for them.
+- Trailer `Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>` on commits made with Claude,
+  and `🤖 Generated with [Claude Code](https://claude.com/claude-code)` at the end of a PR body an
+  agent wrote.
+- The template, the hook and these rules are the defaults of every application started from
+  ankka's templates (`ankka init`, `sbt new thinkmorestupidless/ankka.g8`), not only the family's
+  own repositories.
 
 ## CI
 - GitHub Actions on `ubuntu-24.04`, Node 24 actions. Path-filtered jobs (dorny/paths-filter)
