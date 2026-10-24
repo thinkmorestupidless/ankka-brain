@@ -4,9 +4,11 @@ How every repo in the family is built, tested, released and worked on. A repo fi
 deviations from this.
 
 ## Feature work: spec-kit
-- `.specify/` with speckit 0.14.1, Claude integration, sequential numbering, and the
-  `speckit-bdd` extension (`speckit-bdd` v0.2.0: the `bdd` preset, `features/`, `GLOSSARY.md`,
-  the checker as `just check`). A repo without the extension gets it before its next spec.
+- `.specify/` with speckit 0.14.1, Claude integration, sequential numbering, and two extensions:
+  `speckit-bdd` (`speckit-bdd` v0.2.0: the `bdd` preset, `features/`, `GLOSSARY.md`, the checker
+  as `just check`) and `review` (ankka's `.specify/extensions/review/` and
+  `.claude/skills/speckit-review/`, with the `after_implement` hook in `.specify/extensions.yml`;
+  copied from ankka, where it is kept). A repo without either gets it before its next spec.
 - `specs/NNN-name/` holds `spec.md`, `plan.md`, `research.md`, `data-model.md`, `contracts/`,
   `quickstart.md`, `tasks.md`, `checklists/`. Scenarios live once, in `features/`; the spec
   names them.
@@ -28,13 +30,24 @@ One feature, one branch `NNN-name`, one worktree. The steps, in order, and who r
 | 4 tasks | `/speckit-tasks` | Fable | `tasks.md` | no |
 | 5 analyze | `/speckit-analyze` | Fable | findings across spec, plan and tasks | no: every remediation it suggests is applied, then analyze runs again; it stops when no finding above low remains, or the rest is put to Trevor |
 | 6 implement | `/speckit-implement` | **Opus** (`claude --model opus` in the worktree) | the code, the ticks in `tasks.md`, the suites | **yes** on anything the spec or plan left open or that would change a contract |
-| 7 pull request | `gh pr create` | Opus | the PR, from the branch, on the right base (below), as a draft until its CI is green | **yes**, once CI passes: Trevor approves and merges; an agent never merges |
+| 7 review | the `review` hook after implement (`/speckit-review`) | Opus spawns the reviewer: a subagent with a fresh context running `pr-review` on `<base>...HEAD` | `review.md` in the spec's directory with a resolution under every finding; the fix commits; three report lines for the PR body | **yes** on a blocking finding the implementer disagrees with, and after a second round that still finds blockers |
+| 8 pull request | `gh pr create` | Opus | the PR, from the branch, on the right base (below), as a draft until its CI is green | **yes**, once CI passes: Trevor approves and merges; an agent never merges |
 
 Rules that go with the table:
 - Steps 1 to 5 are one session on Fable; step 6 is a fresh session on Opus started in the same
   worktree, which reads `.specify/feature.json`, `tasks.md` and the plan and nothing from the
   earlier session. The switch is the point: the planning model is not asked to keep the context.
-- `just check` is green before step 3 and before step 7.
+- **The review before the push (2026-10-24).** Step 7 runs locally, in the worktree, before
+  anything is pushed: the implementer knows what it meant and reads that instead of what it wrote,
+  so the reviewer is a subagent given the spec, the plan and the branch and nothing of the
+  implement session. Blocking and should-fix findings are fixed in commits grouped by concern or
+  declined with a reason; `review.md` records each; one re-review of the fixes at most. The PR body
+  carries the reviewer's verdict after the fixes, never the implementer's own. Reviewing in GitHub
+  instead would spend the same tokens, add runner minutes and a wait on CI, and tie the loop to
+  GitHub; it stays an opt-in for PRs that did not come through implement. The `pr-review` plugin
+  must be installed in the session (`/plugin install pr-review@ankka`; before its first release,
+  `claude --plugin-dir <ankka>/marketplace/plugins/pr-review`), or the hook stops and says so.
+- `just check` is green before step 3 and before step 8.
 - A feature that depends on a sibling repository's unmerged work codes against that work's
   approved `contracts/`, never against its routes or code, and says so in the PR.
 - **The base branch.** The PR targets `main` unless the feature's branch was cut from another
