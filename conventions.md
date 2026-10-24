@@ -110,3 +110,14 @@ Rules that go with the table:
 - Internal design treatments go to the private infrastructure repo, never a public one; the private brain names it.
 - Cross-repo decisions go to `decisions/` here, or to the private brain when a private repo is affected, with a link from the in-repo record.
 - Never publish by hand. Never re-tag. Never put a secret value in git.
+
+## The brains are pushed on every commit
+
+`ankka-brain`, `ankka-brain-private` and `voice-brain` are how sessions and agents synchronise:
+a coordinator writes the ledger, a worker reads it, a fresh session resumes from it, Trevor reads
+it from anywhere. A commit that stays on one machine synchronises nobody. So a brain commit is
+pushed in the same step (`git commit && git push`), small and often, directly to `main`; the
+brains carry no code and need no review gate. Before writing to a brain, pull. (Rule from
+2026-10-24: run 1 of programme 001 left 54 private-brain commits unpushed for two days, and the
+remote, the thing the experiment was meant to test as the synchronisation channel, said nothing
+had happened.)
