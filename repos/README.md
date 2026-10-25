@@ -5,7 +5,7 @@ The private repositories have the same board in `ankka-brain-private/repos/READM
 
 | Repo | Role | Stage | Release | Pins ankka at | Last touched | Visibility |
 |---|---|---|---|---|---|---|
-| [ankka](ankka.md) | the platform | released, active daily | v0.9.1 (2026-09-29) | n/a | 2026-09-30 | public |
+| [ankka](ankka.md) | the platform | released, active daily | v0.14.0 (2026-10-25) | n/a | 2026-10-25 | public |
 | [ankka-flow](ankka-flow.md) | streaming pipelines | released, feature 002 in flight | v0.1.0 (2026-09-28) | none (runs beside) | 2026-09-29 | public |
 | [cloudflow](cloudflow.md) | Cloudflow fork | maintenance, frozen | v0.1.0 (Akka line) | none | 2026-09-20 | public |
 | [ankka-satisfaction](satisfactory.md) | constraint solving on ankka (product `satisfactory`) | released | v0.1.0 (2026-09-29) | 0.7.1 snapshot | 2026-09-29 | public |
@@ -14,7 +14,7 @@ The private repositories have the same board in `ankka-brain-private/repos/READM
 | [ankka-predictions](ankka-predictions.md) | a prediction market's domain as libraries | designing, specs 004 to 006 drafted | unreleased | to be set in `build.sbt` | 2026-10-22 | public by decision; private until the consumer's pages are out |
 
 Status as of 2026-10-10 for ankka-contrib; the other rows are as of the date in their last
-column and are known to be behind (ankka is at v0.11.0, ankka-flow at v0.5.0).
+column and are known to be behind (ankka-flow is at v0.5.0).
 
 ## Related repositories without a file here
 Owned by the family but produced from `ankka` by subtree push on release; never edited directly:

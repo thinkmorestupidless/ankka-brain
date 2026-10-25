@@ -16,7 +16,7 @@ deliberate departure from Akka is listed in `docs/reference/akka-divergences.md`
 ## Status
 - Stage: released, active daily; feature 018 (judgments) in flight
 - As of: 2026-09-30
-- Current release: `v0.9.1` (tag on f2bc1b0, 2026-09-29). Eighteen tags since v0.1.0
+- Current release: `v0.14.0` (tag on 53d287a, 2026-10-25; specs 057, 058 and 059, the Java, Kotlin and Go SDKs). 23 tags since v0.1.0
 - Visibility: public, Apache-2.0
 
 ## Where it lives
