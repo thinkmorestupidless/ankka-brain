@@ -19,56 +19,51 @@ deviations from this.
   `CLAUDE.md` principles as the constitution check instead.
 - Skills under `.claude/skills/speckit-*`.
 
-### The feature workflow (2026-10-22)
-One feature, one branch `NNN-name`, one worktree. The steps, in order, and who runs them:
+### The feature workflow (2026-10-27)
+One feature, one branch `NNN-name`, one worktree. Two commands, from the `design-build` spec-kit
+extension (ankka spec 061), each on its own model:
 
-| Step | Command | Model | Produces | Stop for Trevor? |
+| Command | Model | Runs | Produces | Asks Trevor |
 |---|---|---|---|---|
-| 1 specify | `/speckit-specify` | Fable | `spec.md`; the bdd hook writes the scenarios into `features/` and the glossary | **yes**: every `NEEDS CLARIFICATION` the spec raises is put to Trevor as options with implications; the spec is not planned until he answers |
-| 2 clarify | `/speckit-clarify` | Fable | the bdd hook runs the checker first and each finding becomes a question; answers are encoded into the spec | **yes**: the questions are Trevor's |
-| 3 plan | `/speckit-plan` | Fable | `plan.md`, `research.md`, `data-model.md`, `contracts/`, `quickstart.md` | no, unless the plan finds a decision the spec left open |
-| 4 tasks | `/speckit-tasks` | Fable | `tasks.md` | no |
-| 5 analyze | `/speckit-analyze` | Fable | findings across spec, plan and tasks | no: every remediation it suggests is applied, then analyze runs again; it stops when no finding above low remains, or the rest is put to Trevor |
-| 6 implement | `/speckit-implement` | **Opus** (`claude --model opus` in the worktree) | the code, the ticks in `tasks.md`, the suites | **yes** on anything the spec or plan left open or that would change a contract |
-| 7 review | the `review` hook after implement (`/speckit-review`) | Opus spawns the reviewer: a subagent with a fresh context running `pr-review` on `<base>...HEAD` | `review.md` in the spec's directory with a resolution under every finding; the fix commits; three report lines for the PR body | **yes** on a blocking finding the implementer disagrees with, and after a second round that still finds blockers |
-| 8 pull request | `gh pr create` | Opus | the PR, from the branch, on the right base (below), as a draft until its CI is green | **yes**, once CI passes: Trevor approves and merges; an agent never merges |
+| `/speckit-design <description>` | **Fable** (`model: fable` in its skill) | specify (the bdd hook writes the scenarios and glossary terms), the spec's clarifications, clarify (the bdd hook runs the checker first), the checker until it reports nothing, plan, tasks, analyze with every remediation that changes no decision and no scenario applied and analyze run again, at most three rounds, until nothing above low remains; a commit after each stage | `spec.md`, `features/`, `GLOSSARY.md`, `plan.md`, `research.md`, `data-model.md`, `contracts/`, `quickstart.md`, `tasks.md`, ending with the line that starts the build | every `NEEDS CLARIFICATION`, clarify's questions one at a time, each checker finding that is a question, the proposed glossary terms, and every remediation that would change a decision or a scenario; always through AskUserQuestion, so the turn and its model hold |
+| `/speckit-build` | **Opus** (`model: opus` in its skill) | implement, each task committed and the next started without a report; the review before the pull request (`/speckit-review`: the `review` hook's reviewer with a fresh context running `pr-review`); the draft pull request on the right base; `gh pr checks --watch` until the checks finish; `gh pr ready` when every check is green | the code and its suites, the ticks in `tasks.md`, `review.md` with a resolution under every finding, a pull request ready for review | only a decision the spec and plan left open, a change to a contract, a check it cannot make pass, or a blocking review finding it disagrees with |
 
 Rules that go with the table:
-- Steps 1 to 5 are one session on Fable; step 6 is a fresh session on Opus started in the same
-  worktree, which reads `.specify/feature.json`, `tasks.md` and the plan and nothing from the
-  earlier session. The switch is the point: the planning model is not asked to keep the context.
-- **The review before the push (2026-10-24).** Step 7 runs locally, in the worktree, before
-  anything is pushed: the implementer knows what it meant and reads that instead of what it wrote,
-  so the reviewer is a subagent given the spec, the plan and the branch and nothing of the
-  implement session. Blocking and should-fix findings are fixed in commits grouped by concern or
-  declined with a reason; `review.md` records each; one re-review of the fixes at most. The PR body
-  carries the reviewer's verdict after the fixes, never the implementer's own. Reviewing in GitHub
-  instead would spend the same tokens, add runner minutes and a wait on CI, and tie the loop to
-  GitHub; it stays an opt-in for PRs that did not come through implement. The `pr-review` plugin
-  must be installed in the session (`/plugin install pr-review@ankka`; before its first release,
-  `claude --plugin-dir <ankka>/marketplace/plugins/pr-review`), or the hook stops and says so.
-- `just check` is green before step 3 and before step 8.
+- **The models are the skills' `model:` lines**, applied for the turn the command is typed in, and
+  nothing else records them. The deeper-thinking model makes every decision; the cheaper one writes
+  the code once everything is decided. The build reads `.specify/feature.json`, the plan and
+  `tasks.md` and nothing of the design's session, so it may run in a fresh one.
+- **The design refuses** on the default branch, without `bdd` or `review`, in a session that cannot
+  ask (a headless run, a subagent), and for a `--from <stage>` whose inputs are missing. **The build
+  refuses** with no `tasks.md`, without `review`, without the `pr-review` plugin in the session
+  (`/plugin install pr-review@ankka`), or with uncommitted work outside implementing. Both read
+  where they stand from the tree, so typing the command again resumes a run that was cut short.
+- **The review before the push (2026-10-24).** The reviewer is a subagent given the spec, the plan
+  and the branch and nothing of the implement session: the implementer knows what it meant and
+  reads that instead of what it wrote. Blocking and should-fix findings are fixed in commits grouped
+  by concern or declined with a reason; `review.md` records each; one re-review of the fixes at most.
+  The PR body carries the reviewer's verdict after the fixes, never the implementer's own.
 - A feature that depends on a sibling repository's unmerged work codes against that work's
   approved `contracts/`, never against its routes or code, and says so in the PR.
 - **The base branch.** The PR targets `main` unless the feature's branch was cut from another
-  feature branch that is not yet merged; then it targets that branch and the PR says which PR it
-  waits on. When the base PR merges, the stacked PR is retargeted to `main` and rebased before
-  it is reviewed. Never target a branch whose PR Trevor has not approved without saying so in the
-  PR's first line.
+  feature branch that is not yet merged; then it targets that branch and the PR's first line says
+  which PR it waits on. When the base PR merges, the stacked PR is retargeted to `main` and rebased
+  before it is reviewed.
 - **The PR.** Title `<type>(<NNN>): short description` (the Git section below); body from
   `.github/pull_request_template.md`: the spec's path and the tick count under Why, the commands run
   and their results under How it is tested, the contracts touched (ideally none) and what it waits
-  on under Left out, the review-before-push lines, and the Claude Code trailer. Trevor approves and
-  merges; `main` is branch-protected everywhere.
-- **CI before a human.** A PR is raised as a draft (`gh pr create --draft`) and stays one until
-  every CI check on it passes; only then is it marked ready (`gh pr ready`) and Trevor told a
-  review is waiting. A red check is the agent's to attend to first: read the failing job, fix it on
-  the branch or show with evidence that it is a known flake of `main`, and say which in the PR. A
-  PR whose base or body changes (a stacked PR merged into it, a rebase) goes back through the same
-  gate before the next request for review. Trevor's time is spent on green PRs only (2026-10-22).
-- A remediation from step 5 that would change a scenario goes through the features file first and
-  `just check` again; a remediation that would change a decision is a question for Trevor.
-- Nothing is committed to `main`, tagged, published or deployed by an agent at any step.
+  on under Left out, the review lines, and the Claude Code trailer.
+- **CI before a human.** The PR is a draft until every check passes; only then is it marked ready
+  and Trevor told a review is waiting. A red check is fixed on the branch, or shown with evidence
+  (the same job failing the same way on a recent run of `main`) to be a flake of `main`, said in the
+  PR. A PR whose base or body changes goes back through the same gate. Trevor's time is spent on
+  green PRs only (2026-10-22).
+- **Repairing one stage.** Every stage is still its own command (`/speckit-specify`,
+  `/speckit-clarify`, `/speckit-plan`, `/speckit-tasks`, `/speckit-analyze`, `/speckit-implement`,
+  `/speckit-review`); run one alone, then `/speckit-design --from <stage>` or `/speckit-build` picks
+  up from what the tree holds.
+- Nothing is committed to `main`, tagged, published or deployed by an agent at any step, and Trevor
+  approves and merges every PR; `main` is branch-protected everywhere.
 
 ## Build and test (JVM repos)
 - Scala 3.9.0, JDK 21, sbt 1.12.15, munit, testcontainers. Docker required for tests.
