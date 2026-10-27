@@ -17,7 +17,7 @@ it does not do is `docs/reference/limitations.md`. It was called
 ## Status
 - Stage: released, active daily; feature 018 (judgments) in flight
 - As of: 2026-09-30
-- Current release: `v0.14.0` (tag on 53d287a, 2026-10-25; specs 057, 058 and 059, the Java, Kotlin and Go SDKs). 23 tags since v0.1.0
+- Current release: `v0.14.1` (tag on 6bfff24, 2026-10-27; the documentation review, the Go mirror tag fix and the restore fixture fix on top of v0.14.0, which carried specs 057, 058 and 059, the Java, Kotlin and Go SDKs). 24 tags since v0.1.0
 - Visibility: public, Apache-2.0
 
 ## Where it lives
