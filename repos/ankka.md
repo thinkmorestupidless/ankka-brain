@@ -7,9 +7,10 @@ components; ankka supplies the runtime. A control plane, an operator and a CLI d
 scale and observe the result on Kubernetes.
 
 ## Why it exists
-It reimplements Akka's component model on Pekko, the Apache 2.0 fork of Akka 2.6, so the
-programming model carries no BSL constraint on who runs it or what they run on it. Every
-deliberate departure from Akka is listed in `docs/reference/akka-divergences.md`. It was called
+It is a component model for stateful services and agents in Scala 3 on Apache Pekko, so the
+programming model carries no BSL constraint on who runs it or what they run on it. Its public
+documentation describes the platform on its own terms and compares it with no other platform; what
+it does not do is `docs/reference/limitations.md`. It was called
 `nakka` until September 2026, before anything was released; git history before the rename reads
 `nakka` throughout.
 
@@ -50,7 +51,7 @@ must not break:
 3. `docs/concepts/polyglot.md`, `protocol/README.md`, `docs/contributing/language-sdks.md`: before touching an SDK or the sidecar.
 4. `docs/concepts/tenancy-and-access.md`, `docs/platform/identity.md`: before control plane or auth work.
 5. `docs/platform/install-local.md`, `install-cloud.md`, `networking.md`: before manifests or deployments work.
-6. `docs/reference/akka-divergences.md`, `docs/reference/glossary.md`.
+6. `docs/reference/limitations.md`, `docs/reference/glossary.md`.
 7. `specs/<current>/`: today `specs/018-judgments/`.
 
 ## Conventions specific to this repo
@@ -69,8 +70,7 @@ Beyond `../conventions.md`:
 ## Open questions
 - 2026-09-30: feature 018 task T036, the release gate (full awake test run, live Jev suite, quickstart by hand), still open; PR not yet opened despite T037 ticked.
 - 2026-09-30: working tree dirty: `console/package/package.json` at 0.9.0 and an untracked `console/package/package/`. Looks like a by-hand first publish of `ankka-console` left uncommitted.
-- 2026-09-30: `sbt new thinkmorestupidless/ankka.g8` "waits on a release".
-- Doc inconsistencies: `designing-services.md` versus `akka-divergences.md` on a Python endpoint without `acl`; `architecture.md` still says "Python today"; agent concept pages list only scala and python.
+- Doc inconsistencies: `architecture.md` still says "Python today"; agent concept pages list only scala and python.
 - The honest not-implemented list is `docs/reference/limitations.md`. Do not promise past it.
 
 ## Recent moves

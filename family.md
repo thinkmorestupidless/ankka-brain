@@ -3,11 +3,11 @@
 *As of 2026-10-10.*
 
 ## Thesis
-ankka is a serverless application platform for agentic AI on the actor model: Akka's component
-model reimplemented in Scala 3 on Apache Pekko, so that nothing on the path carries a BSL licence.
+ankka is a serverless application platform for agentic AI on the actor model, in Scala 3 on Apache
+Pekko, so that nothing on the path carries a BSL licence.
 You write components; the platform supplies sharding, persistence, projections, durable
 orchestration, timers, HTTP and the agent loop, and a control plane, operator and CLI run it on
-Kubernetes. Services can be written in Scala, Python, TypeScript or Rust.
+Kubernetes. Services can be written in Scala, Java, Kotlin, Python, TypeScript, Go or Rust.
 
 The rest of the family exists to prove and sell that platform by being its own customers. Each
 sibling is either an ankka application, the infrastructure ankka runs on, or a layer that runs

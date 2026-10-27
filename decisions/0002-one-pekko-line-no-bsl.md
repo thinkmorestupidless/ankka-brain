@@ -16,8 +16,9 @@ Akka with a licence key injected into every pipeline pod.
 ## Decision
 Apache Pekko everywhere on the JVM: pekko 1.7.0, pekko-http 1.4.0, pekko-connectors-kafka 1.2.0,
 pekko-management 1.2.1, kafka-clients 3.9.2, pinned whole via family overrides in each build.
-Cloudflow was ported to Pekko (its Phase 1); ankka-flow started on Pekko. Every deliberate
-departure from Akka is listed in ankka's `docs/reference/akka-divergences.md`.
+Cloudflow was ported to Pekko (its Phase 1); ankka-flow started on Pekko. ankka's documentation
+listed every deliberate departure from Akka until 2026-10-27, when the page was retired and the
+platform was described on its own terms.
 
 ## Alternatives considered
 1. **Commercial Akka with a licence key.** Lost: the constraint transfers to every customer.

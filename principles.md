@@ -4,9 +4,10 @@ Beliefs that show up in real decisions across more than one repo. Each has a pla
 
 1. **No BSL on the path.** Pekko, not Akka. The reason ankka exists and the reason cloudflow was
    ported. A dependency that reintroduces a BSL licence is a design change, not a version bump.
-2. **Adopt, then diverge with reasons.** ankka reimplements Akka's component model and lists every
-   departure in `akka-divergences.md`. satisfactory reimplements the Timefold Platform API and
-   lists every divergence in `API.md`. The method is the same: a familiar surface, an honest list.
+2. **Adopt, then diverge with reasons.** satisfactory reimplements the Timefold Platform API and
+   lists every divergence in `API.md`: a familiar surface, an honest list. ankka began the same way
+   and has outgrown it: since 2026-10-27 its public documentation describes the platform on its own
+   terms and compares it with nothing, and its honest list is `limitations.md`.
 3. **Effects are inert data; the runtime interprets them.** Handlers describe; nothing does I/O
    when built. The same idea shapes the operators: pure `render`, one executor that touches the
    world.

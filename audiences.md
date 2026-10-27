@@ -5,14 +5,14 @@ picture an agent needs when writing anything public.
 
 ## Developers building services on ankka
 The primary audience for ankka, its SDKs, docs, CLI, template and Claude Code skills. They know
-Kubernetes well enough to run kind, may or may not know Akka, and write Scala, Python, TypeScript
-or Rust. They want to ship a component and have the platform own the rest. Everything public
+Kubernetes well enough to run kind, and write Scala, Java, Kotlin, Python, TypeScript, Go or
+Rust. They want to ship a component and have the platform own the rest. Everything public
 speaks to them first.
 
-## People who used Akka and hit the licence
+## People who used another component platform and hit its licence
 A sharper subset of the above: they know the component model already and want the same shape
-without BSL. `akka-divergences.md` is written for them. Do not assume this audience for anyone
-else; explain the model from scratch in public docs.
+without BSL. Nothing public is written for them in particular: the documentation names no other
+platform and explains the model from scratch, and their familiarity does the rest.
 
 ## Operators of an installation
 Whoever runs an ankka installation: today one person on the hosted installation, tomorrow a
