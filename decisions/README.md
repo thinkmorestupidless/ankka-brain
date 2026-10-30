@@ -16,6 +16,7 @@ The repos keep their own logs, and those stay authoritative for anything inside 
 | ankka-flow | `docs/design/version-one.md` |
 | ankka-reasoning | `specs/NNN-name/research.md`, and `notes/ankka-requests.md` for what it asks of ankka and ankka-flow |
 | ankka-contrib | none yet; the README |
+| ankka-papercast | `specs/NNN-name/research.md`, once the plan is written |
 | ankka-predictions | `docs/decisions.md` (D1, D2), and `notes/` for what it asks of ankka, ankka-reasoning and its consumer |
 
 The private repos' logs are listed in the private brain.
