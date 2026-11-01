@@ -17,7 +17,7 @@ it does not do is `docs/reference/limitations.md`. It was called
 ## Status
 - Stage: released, active daily; feature 018 (judgments) in flight
 - As of: 2026-09-30
-- Current release: `v0.14.2` (tag on 28d41b9, 2026-10-28; spec 061, design and build: the `/speckit-design` and `/speckit-build` skills and the Get started page, with dependency updates, on top of v0.14.1, the documentation review). 25 tags since v0.1.0
+- Current release: `v0.15.1` (tag on 375732f, 2026-11-01; spec 062, projects of several services. v0.15.0 (4668613, the same day) published everything except the macOS arm64 CLI, the Homebrew formula and the Action tags: GitHub's macos-14 brownout cancelled that leg, and v0.15.1 is the same code built on macos-15). 27 tags since v0.1.0
 - Visibility: public, Apache-2.0
 
 ## Where it lives
