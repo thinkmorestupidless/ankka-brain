@@ -60,7 +60,7 @@ private brain's chain table.
 
 ## One Pekko line
 Every JVM repo pins the same family: pekko 1.7.0, pekko-http 1.4.0, pekko-connectors-kafka 1.2.0,
-pekko-management 1.2.1, kafka-clients 3.9.2, Scala 3.9.0 (cloudflow 3.3.5), JDK 21, sbt 1.12.15.
+pekko-management 1.2.1, kafka-clients 3.9.2, Scala 3.9.0 (cloudflow 3.3.5), JDK 21, sbt 1.12.15 (ankka moved to 1.13.1 on 2026-11-06; the others mirror it).
 Bump in ankka first, then mirror. ankka-flow deliberately excludes pekko-http and pekko-grpc.
 
 ## Where each kind of thing lives
