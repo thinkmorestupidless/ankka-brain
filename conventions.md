@@ -127,6 +127,12 @@ Rules that go with the table:
 - A page stands alone and tells no history: no feature numbers, no `specs/` paths, no "decided
   on". `docs check` refuses them.
 - Samples are included from tested code via `docs:start`/`docs:end` markers and `just docs-sync`.
+- Every sample, in every language the page names (2026-11-09). A page's `languages` frontmatter
+  lists every language its subject exists in; `docs check` holds each tab set to that list, in
+  `mkdocs.yml`'s order, and refuses a lone block in one of them. A language a feature cannot have
+  is left out with `<!-- languages: <shown>; <reason> -->` on the line before, the reason a
+  limitation the limitations page states. A feature is not done until each SDK it reaches has its
+  sample from that SDK's tested examples; the review skills hold a pull request to it.
 - A behaviour change is a docs change. A new page must be in the nav and in a skill's `pages:`.
 - Skills are curated in `tools/docs/skill/<name>/SKILL.md` and rendered into the marketplace
   plugin. Design records (`DESIGN.md`, `API.md`, `ROADMAP.md`) are not pages.
