@@ -17,7 +17,7 @@ it does not do is `docs/reference/limitations.md`. It was called
 ## Status
 - Stage: released, active daily; feature 018 (judgments) in flight
 - As of: 2026-09-30
-- Current release: `v0.16.0` (tag on 539a81f, 2026-11-06; spec 042, personal data erasure by crypto-shredding, and seven dependency bumps incl. sbt 1.13.1; release run 42296659737 green on attempt 1, tagged before a cluster run on main covered it). Before it `v0.15.1` (375732f, 2026-11-01; spec 062, projects of several services. v0.15.0 (4668613, the same day) published everything except the macOS arm64 CLI, the Homebrew formula and the Action tags: GitHub's macos-14 brownout cancelled that leg, and v0.15.1 is the same code built on macos-15). 28 tags since v0.1.0
+- Current release: `v0.16.1` (tag on e09ff6e, 2026-11-10; #263, a Scala endpoint handler takes any number of path parameters, source-breaking for Scala endpoints (handlers state their parameter types, builders take no type arguments), with the pekko 1.x pin, dependency bumps and the fixes #240 to #250; release run 42820289315 green on attempt 1, cut as a patch so a sibling could consume #263 at once). Before it `v0.16.0` (539a81f, 2026-11-06; spec 042, personal data erasure by crypto-shredding, and seven dependency bumps incl. sbt 1.13.1; release run 42296659737 green on attempt 1, tagged before a cluster run on main covered it), and `v0.15.1` (375732f, 2026-11-01; spec 062, projects of several services. v0.15.0 (4668613, the same day) published everything except the macOS arm64 CLI, the Homebrew formula and the Action tags: GitHub's macos-14 brownout cancelled that leg, and v0.15.1 is the same code built on macos-15). 28 tags since v0.1.0
 - Visibility: public, Apache-2.0
 
 ## Where it lives
