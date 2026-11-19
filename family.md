@@ -52,7 +52,7 @@ one owned by another company. Their names, pins and status are in the private br
 | ankka-reasoning | ankka, ankka-flow | SDK and runtime; the graph delta contract and the merge sink | ankka 0.10.0; ankka-flow 0.3.0 (sidecar image) | pinned 2026-10-06. Wants the next ankka release (person tokens, single-file feature suites) and ankka-flow's sidecar package made public |
 | ankka-contrib | ankka | `ankka-sdk` and the graph sink module | 0.11.0 | Maven Central; released on its own cadence against a published ankka |
 | ankka-papercast | ankka | `ankka-{sdk,runtime,http,agent,testkit}` from the template; the spec-kit extensions | 0.14.2 | `ankkaVersion` in build.sbt and `runtime` in service.json; Maven Central |
-| ankka-predictions | ankka | `ankka-core` for the domains; the SDK and testkit for the components | not yet (spec 004 says the family's current release) | `build.sbt`, Maven Central; nothing built yet |
+| ankka-predictions | ankka | `ankka-core` for the domains; the SDK and testkit for the components | 0.18.0 (v0.3.0, 2026-11-19) | `V.ankka` in `project/Dependencies.scala`, Maven Central |
 
 One pin is out of policy today: satisfactory on a snapshot and a branch. See `roadmap.md`. The
 private members' pins, including the installation tag and the hosted product's version, are in the

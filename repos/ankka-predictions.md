@@ -15,23 +15,22 @@ composes them, with its gates, wallet, facts and brands, is the other company's 
 repo's `docs/decisions.md` D1 and D2 say why.
 
 ## Status
-- Stage: designing; specs 004 to 006 drafted, nothing of the libraries built; the template's stub
-  is still at the root
-- As of: 2026-10-22
-- Current release: unreleased
+- Stage: released; specs 004 to 006 built
+- As of: 2026-11-19
+- Current release: v0.3.0 (2026-11-19), on ankka 0.18.0
 - Visibility: public by decision (D2); created private on 2026-10-22 and made public once the
   pages that restate the consuming module's contracts are out of the tree
 
 ## Where it lives
 - Repo: github.com/thinkmorestupidless/ankka-predictions
 - Local: ~/Documents/projects/thinkmorestupidless/ankka-predictions
-- Publishes: nothing yet. On a `v*` tag: `exchange-domain`, `exchange-components`,
+- Publishes: on a `v*` tag, `exchange-domain`, `exchange-components`,
   `markets-domain`, `markets-components` to Maven Central under `com.thinkmorestupidless`
 - Runs: nowhere; libraries, not a service
 
 ## Depends on / depended on by
 - **ankka**: `ankka-core` alone for the domains; the SDK and testkit for the components. Pinned
-  in `build.sbt`; will follow the family's current release.
+  at 0.18.0 by `V.ankka` in `project/Dependencies.scala`; follows the family's current release.
 - **ankka-reasoning**: not a dependency. The consuming module writes the market layer; the
   libraries hold no reasoning vocabulary.
 - **Depended on by** a private module outside the family's repositories, which registers the
