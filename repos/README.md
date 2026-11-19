@@ -5,7 +5,7 @@ The private repositories have the same board in `ankka-brain-private/repos/READM
 
 | Repo | Role | Stage | Release | Pins ankka at | Last touched | Visibility |
 |---|---|---|---|---|---|---|
-| [ankka](ankka.md) | the platform | released, active daily | v0.17.0 (2026-11-18) | n/a | 2026-11-18 | public |
+| [ankka](ankka.md) | the platform | released, active daily | v0.18.0 (2026-11-19) | n/a | 2026-11-19 | public |
 | [ankka-flow](ankka-flow.md) | streaming pipelines | released, feature 002 in flight | v0.1.0 (2026-09-28) | none (runs beside) | 2026-09-29 | public |
 | [cloudflow](cloudflow.md) | Cloudflow fork | maintenance, frozen | v0.1.0 (Akka line) | none | 2026-09-20 | public |
 | [ankka-satisfaction](satisfactory.md) | constraint solving on ankka (product `satisfactory`) | released | v0.1.0 (2026-09-29) | 0.7.1 snapshot | 2026-09-29 | public |
