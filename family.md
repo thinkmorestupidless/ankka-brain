@@ -26,7 +26,7 @@ its content, its values or its status.
 |---|---|---|
 | ankka | the platform | root of the family |
 | satisfactory | an ankka application, separate product | constraint solving as a service; first real downstream user of the docs tool, marketplace and deploy story |
-| ankka-flow | a layer beside ankka | streaming pipelines over the Kafka topics ankka services publish; not a dependency in either direction |
+| ankka-flow | a layer beside ankka | streaming pipelines of engine streamlets, Pekko Streams and Apache Flink, over the Kafka topics ankka services publish; reads a project's declared topics as a machine; not a dependency in either direction |
 | cloudflow | ancestor of ankka-flow | maintained fork on the same Pekko line; frozen for its existing consumers |
 | ankka-reasoning | an ankka application, first feature built | a reasoning graph whose records are ankka entities, published as graph deltas for the merge sink |
 | ankka-contrib | integrations on ankka's SDK | reusable pieces that are not the platform's, one module per integration; first the Neo4j graph store and sink image |
@@ -46,10 +46,10 @@ one owned by another company. Their names, pins and status are in the private br
 |---|---|---|---|---|
 | satisfactory | ankka | `ankka-{sdk,runtime,http,agent,testkit}` | 0.7.1+28 local snapshot | `V.ankka` in project/Dependencies.scala; waits for feature 014, which v0.8.0 already carries |
 | satisfactory | ankka | docs tool `ankka-docs` | branch `shared-docs-tool` | git dependency in tools/docs/pyproject.toml |
-| ankka-flow | ankka | docs tool `ankka-docs` | branch `main` | git dependency |
+| ankka-flow | ankka | docs tool `ankka-docs` | tag `v0.18.0` | git dependency in tools/docs/pyproject.toml |
 | ankka-reasoning | ankka | docs tool `ankka-docs` | branch `main` | git dependency in tools/docs/pyproject.toml |
 | satisfactory, ankka-flow, ankka-reasoning | ankka-marketplace | one plugin directory each | n/a | release job pushes `plugins/<project>/` |
-| ankka-reasoning | ankka, ankka-flow | SDK and runtime; the graph delta contract and the merge sink | ankka 0.10.0; ankka-flow 0.3.0 (sidecar image) | pinned 2026-10-06. Wants the next ankka release (person tokens, single-file feature suites) and ankka-flow's sidecar package made public |
+| ankka-reasoning | ankka, ankka-contrib | SDK and runtime; the Neo4j graph sink image | ankka 0.12.0; sink image 0.1.0 | `V.ankka` and `sinkImage` in `project/Dependencies.scala`; moved from ankka-flow's merge sink 2026-10-18, pins nothing of ankka-flow |
 | ankka-contrib | ankka | `ankka-sdk` and the graph sink module | 0.11.0 | Maven Central; released on its own cadence against a published ankka |
 | ankka-papercast | ankka | `ankka-{sdk,runtime,http,agent,testkit}` from the template; the spec-kit extensions | 0.14.2 | `ankkaVersion` in build.sbt and `runtime` in service.json; Maven Central |
 | ankka-predictions | ankka | `ankka-core` for the domains; the SDK and testkit for the components | 0.18.0 (v0.3.0, 2026-11-19) | `V.ankka` in `project/Dependencies.scala`, Maven Central |
@@ -61,7 +61,9 @@ private brain's chain table.
 ## One Pekko line
 Every JVM repo pins the same family: pekko 1.7.0, pekko-http 1.4.0, pekko-connectors-kafka 1.2.0,
 pekko-management 1.2.1, kafka-clients 3.9.2, Scala 3.9.0 (cloudflow 3.3.5), JDK 21, sbt 1.12.15 (ankka moved to 1.13.1 on 2026-11-06; the others mirror it).
-Bump in ankka first, then mirror. ankka-flow deliberately excludes pekko-http and pekko-grpc.
+Bump in ankka first, then mirror. ankka-flow deliberately excludes pekko-http and pekko-grpc, and
+leaves the line in part (decision 0013): its Pekko Streams SDK is on it, at Pekko 1.7.1 and sbt
+1.13.1; its Flink modules are on Flink's own line.
 
 ## Where each kind of thing lives
 - Public documentation: each repo's `docs/`, built by ankka's docs tool, published to `docs.ankka.cloud`, `flow.ankka.cloud`, `satisfactory.ankka.cloud`, `reasoning.ankka.cloud`.

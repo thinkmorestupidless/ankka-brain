@@ -6,16 +6,16 @@ The private repositories have the same board in `ankka-brain-private/repos/READM
 | Repo | Role | Stage | Release | Pins ankka at | Last touched | Visibility |
 |---|---|---|---|---|---|---|
 | [ankka](ankka.md) | the platform | released, active daily | v0.18.0 (2026-11-19) | n/a | 2026-11-19 | public |
-| [ankka-flow](ankka-flow.md) | streaming pipelines | released, feature 002 in flight | v0.1.0 (2026-09-28) | none (runs beside) | 2026-09-29 | public |
+| [ankka-flow](ankka-flow.md) | streaming pipelines of engine streamlets (Pekko Streams, Flink) | released; feature 009 merged, version two unreleased | v0.5.0 (2026-10-07) | none (runs beside) | 2026-11-23 | public |
 | [cloudflow](cloudflow.md) | Cloudflow fork | maintenance, frozen | v0.1.0 (Akka line) | none | 2026-09-20 | public |
 | [ankka-satisfaction](satisfactory.md) | constraint solving on ankka (product `satisfactory`) | released | v0.1.0 (2026-09-29) | 0.7.1 snapshot | 2026-09-29 | public |
-| [ankka-reasoning](ankka-reasoning.md) | reasoning graph on ankka | released | 0.1.1 | ankka 0.10.0, ankka-flow 0.3.0 | 2026-10-06 | public |
+| [ankka-reasoning](ankka-reasoning.md) | reasoning graph on ankka | released | 0.1.1 | ankka 0.12.0; ankka-contrib sink image 0.1.0 | 2026-10-22 | public |
 | [ankka-contrib](ankka-contrib.md) | integrations on ankka's SDK | released | v0.1.0 (2026-10-08) | 0.11.0 | 2026-10-08 | public |
 | [ankka-papercast](ankka-papercast.md) | a podcast of the scientific literature, built on camera for the videos | designing, spec 001 written | unreleased | 0.14.2 | 2026-10-30 | public by decision; private until made public |
 | [ankka-predictions](ankka-predictions.md) | a prediction market's domain as libraries | released; specs 004 to 006 built | v0.3.0 (2026-11-19) | 0.18.0 | 2026-11-19 | public by decision; private until the consumer's pages are out |
 
 Status as of 2026-10-10 for ankka-contrib; the other rows are as of the date in their last
-column and are known to be behind (ankka-flow is at v0.5.0).
+column and are known to be behind.
 
 ## Related repositories without a file here
 Owned by the family but produced from `ankka` by subtree push on release; never edited directly:

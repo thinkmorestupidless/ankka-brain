@@ -110,7 +110,18 @@ Rules that go with the table:
 
 ## CI
 - GitHub Actions on `ubuntu-24.04`, Node 24 actions. Path-filtered jobs (dorny/paths-filter)
-  gate what runs; extend the filter when a job reads a new part of the tree.
+  gate what runs; extend the filter when a job reads a new part of the tree. A filter names
+  everything its job reads, not only its directory, and `.github/ci-coverage.py` fails a tracked
+  file no filter claims or a pattern that matches no file (`unchecked` names what needs no job).
+- Only pull requests are built. `main` is protected, its checks required on a head up to date with
+  it, so the merge commit is the tree that was tested and nothing rebuilds it. `workflow_dispatch`
+  runs every job on demand. A skipped matrix reports no names, so its required check is a summary job.
+- Suites that start a cluster (k3s) run nightly on `main` and on demand against a branch
+  (`cluster.yml`), never on a pull request.
+- The documentation site is published by a release, never from `main`, so it describes what a reader
+  can install.
+- Every compiler warning is an error (`-Werror`; `-Xlint:all -Werror` for Java), Scaladoc exempt.
+- ankka-flow cancels a pull request's superseded runs (`concurrency`); ankka is to follow.
 - CI never holds a cloud credential except the keyless release identity on tag builds.
 
 ## Release

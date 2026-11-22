@@ -2,76 +2,87 @@
 
 ## One-liner
 Streaming pipelines beside ankka: streamlets with typed inlets and outlets, wired by a blueprint
-over Kafka topics, each streamlet's logic in any language in its own container, with a Pekko
-sidecar beside it that owns everything Kafka.
+over Kafka topics, each written against one engine's own API and run by that engine, Pekko
+Streams or Apache Flink.
 
 ## Why it exists
-The sidecar model removes the reason most of Cloudflow's structure existed: streamlets discovered
-by scanning a JVM classpath, images built by sbt and Maven plugins, a runtime compiled into every
-image, and the Scala 2.12 build tree. So it started fresh in its own repository (clarified
-2026-09-28) rather than as a further phase of the cloudflow fork, which stays as it is for its
-existing consumers. Six pieces were carried over from the fork by copy, each with its test.
+The family's home for engine-run stream processing (decision 0013): windows, event time, joins,
+keyed state and recomputation over history, and cleaning or reshaping data at volume before it
+reaches a project. None of that belongs in ankka's core, and all of it sits between the topics
+ankka services already publish and read.
 
 Where ankka ends and ankka-flow begins: a single service reacting to a topic is an ankka
-consumer. ankka-flow is the layer above, a graph of stages with contracts verified before anything
-runs, fan-out, platform-owned topics, per-key ordering through a chain, rebuild from the start of
-inputs, lag per stage, and sinks that commit after writing elsewhere. If a design needs none of
-those, it is not a flow.
+consumer. A stage that needs neither windows nor state is a Pekko Streams streamlet; one that
+needs either is a Flink streamlet.
+
+Version one (to v0.5.0) ran every streamlet as a process beside a Pekko sidecar that owned Kafka.
+Feature 009 removed the sidecar, the `ankka.flow.v1` protocol, the Scala and Python process SDKs,
+the built-in graph sink and `flow init`; the descriptor, blueprint verification, the operator's
+render and execute split and the `flow` CLI stayed.
 
 ## Status
-- Stage: released; feature 002 (Neo4j merge sink, the first built-in stage) in flight
-- As of: 2026-09-30
-- Current release: `v0.1.0` (tag at ddf3ca5, 2026-09-28)
+- Stage: released; feature 009 (engine streamlets) merged to `main` (#20, 2026-11-23), version
+  two unreleased
+- As of: 2026-11-23
+- Current release: `v0.5.0` (2026-10-07), version one. Version two is unreleased
 - Visibility: public
 
 ## Where it lives
 - Repo: github.com/thinkmorestupidless/ankka-flow
 - Local: ~/Documents/projects/thinkmorestupidless/ankka-flow
-- Publishes: GHCR images `ankka-flow-sidecar`, `ankka-flow-operator`, `sample-cart-router`,
-  `sample-checkout-feed`, `sample-checkout-graph`; PyPI package `ankka-flow` (trusted publishing);
-  Claude Code plugin `ankka-flow` pushed into `thinkmorestupidless/ankka-marketplace`; docs at
-  flow.ankka.cloud. No Maven artifacts; every sbt module is `publish / skip`
-- Runs: any Kubernetes cluster with Kafka; proven on kind beside ankka (tier 7)
+- Publishes, from version two: Maven Central `ankka-flow-descriptor_3`,
+  `ankka-flow-pekko-streams_3`, `ankka-flow-flink`, `ankka-flow-flink-testkit`; GHCR images
+  `ankka-flow-operator`, `sample-cart-cleaner`, `sample-cart-counter`; the native `flow` binaries
+  and the shared Homebrew tap's formula; the Claude Code plugin `ankka-flow` (four skills) pushed
+  into `thinkmorestupidless/ankka-marketplace`; docs at flow.ankka.cloud
+- Runs: any Kubernetes cluster with Kafka, the Apache Flink Kubernetes Operator and an object store
+  for Flink's state; proven on k3s and kind
 
 ## Depends on / depended on by
-- **Runs beside `ankka`**, not on it. ankka services are visible to a pipeline only as Kafka
-  topics (unmanaged topics such as `cart-checkouts`). Follows ankka's conventions so people move
-  between the two: operator render/execute split, `protocol/` directory SDKs copy, conformance
-  suite, `FLOW_*` env vars mirroring `ANKKA_*`, ports 9010/9011, CRD group under ankka's domain.
-- **Consumes ankka's docs tool** from `git+https://github.com/thinkmorestupidless/ankka@main#subdirectory=tools/docs`.
-- **Needed one change in ankka**: `ProjectionRuntime.fromEnv()` reading `ANKKA_KAFKA_BOOTSTRAP_SERVERS`, for tier 7. ankka's operator still configures no Kafka for services in a cluster by default.
+- **Runs beside `ankka`**, not on it. A blueprint names an ankka project's topic as
+  `ankka = "<project>/<name>"`, checks it against the project's declared contracts
+  (`flow verify --ankka-topics`), and reaches it as a registered machine the project grants. ankka
+  needed no change for it.
+- **Consumes ankka's docs tool** at tag `v0.18.0` (`tools/docs/pyproject.toml`, `uv.lock`).
+- **Runs over the Flink Kubernetes Operator** (1.16.1, Flink 2.2.1), installed first; ankka-flow's
+  operator renders a `FlinkDeployment` for each Flink streamlet.
 - **Descends from `cloudflow`**: blueprint verification, JSON contracts by schema name,
   commit-after-write, consumer-group reset, topic creation, client-id naming and Prometheus rules.
-  Lightbend headers kept, listed in `NOTICE`. Neither is a dependency of the other.
-- **Must not break**: the Python SDK's copied `protocol/` (CI diffs byte for byte); PyPI versions
-  (immutable); the marketplace plugin (never force-pushed); the Pages site.
+  Lightbend headers kept, listed in `NOTICE`.
+- **Consumed by nothing in the family.** ankka-reasoning moved to ankka-contrib's sink image on
+  2026-10-18 and pins nothing of ankka-flow, so removing version one stranded no consumer.
+- **Must not break**: the descriptor fixtures both SDKs reproduce byte for byte; Maven Central
+  versions (immutable); the marketplace plugin and the Homebrew tap (never force-pushed).
 
 ## Read first
-1. `README.md`: laptop and Kubernetes quickstart.
-2. `CLAUDE.md`: commands, the rules table, docs rules, carried-code and manifest conventions, env vars, the "not in this build" list.
-3. `specs/001-version-one/spec.md` then `research.md`: what version one does; R1 to R16 and what implementation changed.
-4. `specs/001-version-one/contracts/`: protocol, descriptor, sidecar, resource and operator, CLI, Python SDK, conformance.
-5. `specs/002-graph-merge-sink/`: the in-flight feature.
-6. `protocol/README.md`, `protocol/DESCRIPTOR.md`: the wire rules SDKs copy.
-7. `docs/concepts/` and `docs/reference/limitations.md`.
+1. `README.md`: the two-engine sample, on a laptop and on Kubernetes.
+2. `CLAUDE.md`: commands, the rules table, docs rules, carried code, manifests, env vars.
+3. `specs/009-engine-streamlets/spec.md`, then `plan.md` and `research.md`: behaviour, decisions,
+   and what implementation found.
+4. `specs/009-engine-streamlets/contracts/`: descriptor, streamlet settings, resource and
+   operator, CLI.
+5. `features/` and `GLOSSARY.md`: the living features.
+6. `docs/concepts/engines.md` and `docs/reference/limitations.md`.
 
 ## Conventions specific to this repo
-- Not in this build, by rule: pekko-http, pekko-grpc, Avro, spray-json, ScalaTest. Adding one means updating `research.md` first.
-- gRPC via grpc-java plus ScalaPB, not pekko-grpc. Protocol version `1.0`.
-- Carried code keeps its Lightbend header verbatim, brings its test as munit, and is added to `NOTICE`.
-- Manifests canonical in `kustomization/components/`; JVM resources are symlinks into them.
-- Deliberate departure from ankka: the operator writes Kubernetes Events (`PartitionStalled`, `Refused`, `TopicDiffers` and others). ankka writes none.
-- Release: push a `v*` tag; images, then PyPI, then marketplace. Python `__version__` and plugin version are `0.0.0` in the tree and written from the tag.
+- Not in this build, by rule: pekko-http, pekko-grpc, Avro, spray-json, ScalaTest.
+- Leaves the one Pekko line in part (decision 0013): the Pekko Streams SDK is on it (Pekko
+  1.7.1); the Flink SDK, its testkit and the counter sample are Java on Flink's own line,
+  compiled `--release 17`, and are not mirrored from ankka.
+- Two Scala versions: the published Scala modules compile with Scala 3.3 LTS so any Scala 3.3+
+  project can depend on them; the rest is on 3.9.
+- Carried code keeps its Lightbend header verbatim, brings its test as munit, and is in `NOTICE`.
+- Deliberate departure from ankka: the operator writes Kubernetes Events and status conditions
+  (`StateUnreadable`, `TopicNotGranted` and others).
 
 ## Open questions
-- 2026-09-30: feature 002 task T037 open: run quickstart tier 6 on kind beside ankka and record it.
-- 2026-09-30: branch `002-graph-merge-sink` has no upstream; 12 commits ahead of main, not pushed.
-- 2026-09-30: sidecar p90 latency (23 ms) named "the next thing to work on".
-- 2026-09-30: `ConstraintNotCreated` path verified by inspection only; no automated k3s case observes a stall Event.
-- 2026-09-30: constitution never filled; plan 001 said to run it before the next feature and it was not.
-- Limitations page: at-least-once only, JSON only, one SDK, one built-in stage, Neo4j 5.26+ write-only, no ingress, Kafka only, JVM CLI, records under 4 MiB.
 
 ## Recent moves
-- 2026-09-29: feature 002 implemented end to end on the branch: driver, built-in descriptor, CLI and operator built-ins, stage, metrics, k3s scenario, `checkout-graph` sample, docs, skills, benchmark (5,345 deltas/s against a 1,000 floor). 42 of 43 tasks done.
-- 2026-09-28: `v0.1.0`. PR #3: tier 7 beside ankka, SDK on PyPI, no gRPC keepalive. PR #4: `flow generate --delete-managed-topics`. Version one benchmarked at 3,500 to 5,640 records/s per partition with 6 to 7 ms added latency.
-- 2026-09-28: version one specified and implemented in one day (PR #1), docs site and skills (PR #2).
+- 2026-11-23: CI on ankka's pattern (#21): pull requests only, `main` protected with checks up to date,
+  a filter coverage check, the k3s suite nightly (`cluster.yml`), the site published by a release;
+  every Scala warning an error (#22).
+- 2026-11-23: feature 009 merged (#20); the native binary built and tested by its PR's `cli-native`.
+- 2026-11-22: feature 009 built: engine streamlets, two SDKs, Flink under its operator with a
+  state store and epochs, ankka topics as a machine, version one removed.
+- 2026-11-22: decision 0013 reverses the retirement noted on 2026-10-07.
+- 2026-10-07: `v0.5.0`, version one's last release.

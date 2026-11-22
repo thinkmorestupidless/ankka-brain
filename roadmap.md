@@ -12,7 +12,7 @@ members' chains (the hosted product going live, the installations, the downstrea
 | Repo | Released | Branch in flight | Pins ankka |
 |---|---|---|---|
 | ankka | v0.9.1 | `018-judgments`, 36 of 37 tasks | |
-| ankka-flow | v0.1.0 | `002-graph-merge-sink`, 42 of 43, not pushed | none |
+| ankka-flow | v0.5.0 | `main`: version two merged (feature 009, #20), v0.6.0 owed | none |
 | cloudflow | v0.1.0 (Akka line) | none | none |
 | satisfactory | v0.1.0 | `architecture-diagram` | 0.7.1 snapshot |
 | ankka-reasoning | 0.1.1 | `002-process-layer`, all seven phases merged to `main` (2026-10-22), release 0.2.0 owed | 0.12.0; ankka-contrib's sink image 0.1.0 (no ankka-flow) |
@@ -36,11 +36,14 @@ ankka feature 037 and the Neo4j sink moving to ankka-contrib. Refresh the rows a
 2. Open the PR, merge, tag. Commit or revert the dirty console package files first.
 3. Out of scope for 018 and unowned: judgment client for workflows, endpoints and consumers; tool-call guardrail hook; sidecar and wasm support for judgments; console display.
 
-**ankka-flow feature 002, then retirement**
-1. Push `002-graph-merge-sink`, finish T037 (tier 6 on kind beside ankka, recorded), PR, tag v0.2.0.
-2. Next named: sidecar p90 latency (23 ms).
-3. Waiting on ankka: the operator configuring Kafka for services in a cluster by default.
-4. Added 2026-10-10: ankka-flow's capabilities become ankka feature 037; the Neo4j sink is ankka-contrib's. Done 2026-10-18: ankka-reasoning moved to ankka-contrib's sink image (spec 002, phase 1) and pins nothing of ankka-flow.
+**ankka-flow version two (refreshed 2026-11-23)**
+1. Decision 0013 reverses the retirement planned 2026-10-10: ankka-flow stays the family's home for
+   engine-run stream processing. Feature 009 (engine streamlets on Pekko Streams and Flink) is merged
+   (#20); CI follows ankka's pattern (#21, #22).
+2. Next: v0.6.0, version two's first release, which also publishes the site (until then
+   flow.ankka.cloud shows version two while v0.5.0 installs version one).
+3. Feature 008's spec (`008-ankka-topics`, local only) was absorbed by 009; its branch is kept until
+   someone decides whether the spec is worth committing as a record.
 
 **ankka-reasoning (added 2026-10-06, refreshed 2026-10-21)**
 1. Done: ankka 0.12.0 carries `ankka-auth-oidc`, the single-file `GherkinSuite` and the blueprints; the service pins it. Done: moved to ankka-contrib's sink image; nothing of ankka-flow is pinned.
