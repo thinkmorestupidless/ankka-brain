@@ -121,7 +121,7 @@ Rules that go with the table:
 - The documentation site is published by a release, never from `main`, so it describes what a reader
   can install.
 - Every compiler warning is an error (`-Werror`; `-Xlint:all -Werror` for Java), Scaladoc exempt.
-- ankka-flow cancels a pull request's superseded runs (`concurrency`); ankka is to follow.
+- A push to a pull request cancels the run it supersedes (`concurrency`, grouped by pull request).
 - CI never holds a cloud credential except the keyless release identity on tag builds.
 
 ## Release
