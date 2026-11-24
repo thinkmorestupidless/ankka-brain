@@ -6,7 +6,7 @@ The private repositories have the same board in `ankka-brain-private/repos/READM
 | Repo | Role | Stage | Release | Pins ankka at | Last touched | Visibility |
 |---|---|---|---|---|---|---|
 | [ankka](ankka.md) | the platform | released, active daily | v0.18.0 (2026-11-19) | n/a | 2026-11-19 | public |
-| [ankka-flow](ankka-flow.md) | streaming pipelines of engine streamlets (Pekko Streams, Flink) | released; feature 009 merged, version two unreleased | v0.5.0 (2026-10-07) | none (runs beside) | 2026-11-23 | public |
+| [ankka-flow](ankka-flow.md) | streaming pipelines of engine streamlets (Pekko Streams, Flink) | released; version two (feature 009) released | v0.6.0 (2026-11-24) | none (runs beside) | 2026-11-24 | public |
 | [cloudflow](cloudflow.md) | Cloudflow fork | maintenance, frozen | v0.1.0 (Akka line) | none | 2026-09-20 | public |
 | [ankka-satisfaction](satisfactory.md) | constraint solving on ankka (product `satisfactory`) | released | v0.1.0 (2026-09-29) | 0.7.1 snapshot | 2026-09-29 | public |
 | [ankka-reasoning](ankka-reasoning.md) | reasoning graph on ankka | released | 0.1.1 | ankka 0.12.0; ankka-contrib sink image 0.1.0 | 2026-10-22 | public |

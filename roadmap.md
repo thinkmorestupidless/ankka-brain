@@ -12,7 +12,7 @@ members' chains (the hosted product going live, the installations, the downstrea
 | Repo | Released | Branch in flight | Pins ankka |
 |---|---|---|---|
 | ankka | v0.9.1 | `018-judgments`, 36 of 37 tasks | |
-| ankka-flow | v0.5.0 | `main`: version two merged (feature 009, #20), v0.6.0 owed | none |
+| ankka-flow | v0.6.0 | version two released (2026-11-24) | none |
 | cloudflow | v0.1.0 (Akka line) | none | none |
 | satisfactory | v0.1.0 | `architecture-diagram` | 0.7.1 snapshot |
 | ankka-reasoning | 0.1.1 | `002-process-layer`, all seven phases merged to `main` (2026-10-22), release 0.2.0 owed | 0.12.0; ankka-contrib's sink image 0.1.0 (no ankka-flow) |
@@ -20,8 +20,7 @@ members' chains (the hosted product going live, the installations, the downstrea
 | ankka-predictions | unreleased | `main` only; specs 004 to 006 drafted (2026-10-22) | not yet pinned |
 
 Known to be behind as of 2026-10-10: ankka is at v0.11.0 with specs 038 to 048 merged or in pull
-requests; ankka-flow is at v0.5.0 and its README calls it deprecated, its capabilities becoming
-ankka feature 037 and the Neo4j sink moving to ankka-contrib. Refresh the rows above when touched.
+requests. Refresh the rows above when touched.
 
 ## Chains: what waits on what
 

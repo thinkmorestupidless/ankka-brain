@@ -21,10 +21,9 @@ the built-in graph sink and `flow init`; the descriptor, blueprint verification,
 render and execute split and the `flow` CLI stayed.
 
 ## Status
-- Stage: released; feature 009 (engine streamlets) merged to `main` (#20, 2026-11-23), version
-  two unreleased
-- As of: 2026-11-23
-- Current release: `v0.5.0` (2026-10-07), version one. Version two is unreleased
+- Stage: released; version two (feature 009, engine streamlets) released
+- As of: 2026-11-24
+- Current release: `v0.6.0` (2026-11-24), version two's first. `v0.5.0` was version one's last
 - Visibility: public
 
 ## Where it lives
@@ -81,6 +80,11 @@ render and execute split and the `flow` CLI stayed.
 - 2026-11-23: CI on ankka's pattern (#21): pull requests only, `main` protected with checks up to date,
   a filter coverage check, the k3s suite nightly (`cluster.yml`), the site published by a release;
   every Scala warning an error (#22).
+- 2026-11-24: `v0.6.0`, version two's first release: the SDKs on Maven Central, the operator and
+  the sample's two images on GHCR, four native binaries, the formula, the plugin, and the site
+  (published by the release since #21). Two pre-releases first: rc.1 found GitHub no longer runs
+  `macos-14` (#23 moved the leg to `macos-15`); rc.2 built all four. The first images job hit
+  Maven Central's HTTP 429 fetching sbt and passed on a re-run.
 - 2026-11-23: feature 009 merged (#20); the native binary built and tested by its PR's `cli-native`.
 - 2026-11-22: feature 009 built: engine streamlets, two SDKs, Flink under its operator with a
   state store and epochs, ankka topics as a machine, version one removed.
